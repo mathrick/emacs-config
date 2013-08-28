@@ -51,3 +51,25 @@
 ;; Python
 (local-hook-key 'python-mode-hook (kbd "RET") 'newline-and-indent)
 
+;; Paredit
+;; Customise keys
+(eval-after-load "paredit"
+  '(let ((map paredit-mode-map))
+     (mapcar (lambda (key)
+               (define-key map (read-kbd-macro key) nil))
+             (list
+              "C-M-p"
+              "C-M-n"
+              "M-<up>"
+              "M-<down>"
+              "C-<right>"
+              "C-<left>"
+              "C-M-<left>"
+              "C-M-<right>"))
+     (define-key map (kbd ")") 'paredit-close-round-and-newline)
+     (define-key map (kbd "M-)") 'paredit-close-round)
+     (define-key map (kbd "<delete>") 'paredit-forward-maybe-delete-region)
+     (define-key map (kbd "DEL") 'paredit-backward-maybe-delete-region)))
+
+;; Lisp
+(local-hook-key 'emacs-lisp-mode-hook (kbd "C-c C-c") 'eval-defun)

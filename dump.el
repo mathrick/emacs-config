@@ -1,10 +1,4 @@
 
-(require 'org-install)
-(require 'org-special-blocks)
-
-;; do not bug me about saving my abbreviations
-(setq save-abbrevs nil)
-
 ;; (require 'msf-abbrev)
 ;; (global-msf-abbrev-mode t) ;; for all modes with abbrevs or
 ;; ;; M-x msf-abbrev-mode RET ;; for only one buffer
@@ -14,70 +8,6 @@
 ;; (global-set-key (kbd "C-c A") 'msf-cmd-define)
 ;; (global-set-key [(control tab)] 'msf-cmd-make-choice)
 
-(server-mode t)
-
-(load-file "~/elisp/highlight-parentheses.el")
-(require 'highlight-parentheses)
-
-(defun check-region-parens ()
-  "Check if parentheses in the region are balanced. Signals a
-scan-error if not."
-  (interactive)
-  (save-restriction
-    (save-excursion
-    (let ((deactivate-mark nil))
-      (condition-case c
-          (progn 
-            (narrow-to-region (region-beginning) (region-end))
-            (goto-char (point-min))
-            (while (/= 0 (- (point)
-                            (forward-list))))
-            t)
-        (scan-error (signal 'scan-error '("Region parentheses not balanced"))))))))
-
-(defun paredit-backward-maybe-delete-region ()
-  (interactive)
-  (if mark-active
-      (progn
-        (check-region-parens)
-        (cua-delete-region))
-    (paredit-backward-delete)))
-
-(defun paredit-forward-maybe-delete-region ()
-  (interactive)
-  (if mark-active
-      (progn
-        (check-region-parens)
-        (cua-delete-region))
-    (paredit-forward-delete)))
-
-(load-file "~/elisp/paredit.el")
-;; Customise keys
-(eval-after-load "~/elisp/paredit.el"
-  '(let ((map paredit-mode-map))
-     (mapcar (lambda (key)
-               (define-key map (read-kbd-macro key) nil))
-             (list
-              "C-M-p"
-              "C-M-n"
-              "M-<up>"
-              "M-<down>"
-              "C-<right>"
-              "C-<left>"
-              "C-M-<left>"
-              "C-M-<right>"))
-     (define-key map (kbd ")") 'paredit-close-round-and-newline)
-     (define-key map (kbd "M-)") 'paredit-close-round)
-     (define-key map (kbd "<delete>") 'paredit-forward-maybe-delete-region)
-     (define-key map (kbd "DEL") 'paredit-backward-maybe-delete-region)))
-
-(add-hook 'lisp-mode-hook 'paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-
-(add-hook 'lisp-mode-hook 'highlight-parentheses-mode)
-(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
-
-(add-hook 'emacs-lisp-mode-hook (lambda () (local-set-key (kbd "C-c C-c") 'eval-defun)))
 
 ;; (add-to-list 'load-path "~/elisp/slime/")  ; your SLIME directory
 ;; (add-to-list 'load-path "~/elisp/slime/contrib/")  ; your SLIME directory

@@ -14,3 +14,13 @@
 
 ;;; Customisations begin here
 (require 'ls-lisp)
+
+;; TODO: migrate to M-x customize-apropos org-modules
+(require 'org-install)
+(require 'org-special-blocks)
+
+;; TODO: migrate to custom
+;; do not bug me about saving my abbreviations
+(setq save-abbrevs nil)
+
+(server-mode t)
