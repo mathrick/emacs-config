@@ -82,7 +82,7 @@
     (progn
       (load (expand-file-name path))
       nil)
-    (error error-trap)))
+    ((debug error) error-trap)))
 
 (defmacro grail-trap ( message &rest body )
   `(let
@@ -110,7 +110,9 @@
     ;; the first priority is the USER_ELISP environment variable
     ;; the second priority is
     (defvar grail-elisp-root
-      (expand-file-name (concat (getenv "USER_ELISP") "/"))
+      (expand-file-name (if (getenv "USER_ELISP")
+                            (concat (getenv "USER_ELISP") "/")
+                          "~/elisp/"))
       "The root of the user's elisp tree")
 
     ;; abort the rest of grail if the USER_ELISP tree cannot be found.

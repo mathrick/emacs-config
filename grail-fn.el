@@ -421,7 +421,7 @@
      (progn
        ,@load-expr
        nil)
-     (error error-trap)) )
+     ((debug error) error-trap)) )
 
 (defmacro robust-load-elisp ( &rest load-expr )
   "robust-load-elisp LOAD-EXPR
@@ -434,7 +434,7 @@
      (progn
        ,@load-expr
        t)
-     (error nil)) )
+     ((debug error) nil)) )
 
 (defun grail-in-load-path-p (package)
   "grail-in-load-path-p elisp-name
