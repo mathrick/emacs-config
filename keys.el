@@ -14,6 +14,7 @@
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 (global-set-key (kbd "C-c C-v") 'uncomment-region)
 (global-set-key (kbd "C-h d") 'describe-function)
+(global-set-key (kbd "C-h a") 'apropos)
 
 ;; Text manip and navigation
 (global-set-key [(meta control n)] 'goto-char-forward)

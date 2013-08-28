@@ -14,36 +14,10 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;Zapytaj o odtworzenie sesji
-;; (if (let
-;;      (
-;;       (last-nonmenu-event nil)(mb enable-multibyte-characters)
-;;       )
-;;       (set-buffer-multibyte t)(let ((coding-system-for-write 'latin-2)(res(y-or-n-p "Odtworzyć sesję?"))) (set-buffer-multibyte mb) res)
-;;       )
-;;     (resume-windows)
-;;   )
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(global-set-key [(control h) (a)] 'apropos)
+(put 'set-goal-column 'disabled nil)
+(put 'scroll-left 'disabled nil)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
-
-(put 'set-goal-column 'disabled nil)
-;; (load "~/elisp/egtk.el")
-
-(load "~/elisp/psvn.el")
-
-;; (setq fc-base "~/jp")
-;; (setq fc-default-lang 'jp)
-;; (add-to-list 'load-path "~/elisp")
-;; (load "~/elisp/fc")
-
-;; (set-face-attribute 'flashcard-question-face nil :height 3.0)
-;; (set-face-attribute 'flashcard-answer-face nil :height 3.0)
 
 ;; SKK
 ;; SKK が検索する辞書 (サーバを使わないとき)
@@ -100,7 +74,6 @@
 (setq skk-use-numeric-conversion t)
 
 (require 'ls-lisp)
-(put 'scroll-left 'disabled nil)
 
 ;; (set-face-font 'default "DejaVu Sans Mono")
 ;; (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono"))
