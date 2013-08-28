@@ -3,4 +3,5 @@
 
 (depends-on "cask")
 (depends-on "melpa")
+(depends-on "mic-paren")
 (depends-on "pallet")
