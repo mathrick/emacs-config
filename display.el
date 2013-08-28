@@ -91,9 +91,9 @@
 ;; (add-to-list 'compilation-finish-functions 'lmcompile-do-highlight)
 ;; (global-set-key [(control c) (C)] 'lmccompile-clear)
 
-(load-library "semantic-hover-completion")
+;; (load-library "semantic-hover-completion")
 ;; (semantic-hover-completion-install-c-hooks)
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(meta \?)] 'semantic-hover-completion-popup)))
+;; (add-hook 'c-mode-common-hook (lambda () (local-set-key [(meta \?)] 'semantic-hover-completion-popup)))
 
 (global-ede-mode 1)
 
