@@ -45,7 +45,7 @@ Then, bootstrap the package-management packages:
 
 That's it! Now you just wait. This will make sure ELPA & MELPA are
 initialised, and will fetch Pallet & Cask to do the rest of dependency
-management. When those are reay, it will do the actual fetching of the
+management. When those are ready, it will do the actual fetching of the
 packages your Cask manifest specifies (and will probably take a few
 minutes). 
 
@@ -56,17 +56,18 @@ It installed Pallet, but compilation said "Cannot open load file cask"
 ---------------------------------------------------------------------
 
 Yeah, it does that. Doesn't seem to matter though. Same happens when
-you do `cask-install`; it basically doesn't seem to be able to find
-the just-installed packages properly. It still works in the end.
+other packages are installed and compiled; it basically doesn't seem
+to be able to find the just-installed packages properly. It still
+works in the end.
 
 <a name="stealing"/>
 So you mentioned stealing it for myself. How do I do that?
 ----------------------------------------------------------
 
 Right now, it's not absolutely 100% ready, and needs some minor fixes
-that are important for wider consumption. Also, the hacky overrides I
-had to apply to Pallet and Casket need to be pushed upstream and
-integrated properly.
+that are important for wider consumption (namely, not assuming
+`~/elisp`). Also, the hacky overrides I had to apply to Pallet and
+Casket need to be pushed upstream and integrated properly.
 
 However, the main parts that you need are as follows:
 
@@ -76,7 +77,8 @@ However, the main parts that you need are as follows:
    This is where packages needed by the code are recorded. You can
    safely remove all but `melpa`, `cask` and `pallet`. After
    bootstrap, Pallet will take care of recording all activity, so just
-   use the usual `list-package` and `package-install`, `package-delete`
+   use the usual `M-x list-package` and `M-x package-install`, `M-x
+   package-delete`
 
    Note that for non-ELPA packages, you will probably need to use
    Grail profiles and installers
