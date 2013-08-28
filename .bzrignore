@@ -1,0 +1,3 @@
+dist/elpa/*-readme.txt
+*.elc
+dist/elpa/archives
