@@ -1,14 +1,14 @@
 # How to bootstrap a fresh Emacs install
 ========================================
 
-emacs -l ~/elisp/bootstrap.el
+    emacs -l ~/elisp/bootstrap.el
 
 This will make sure ELPA & MELPA are initialised, and will fetch
 Pallet & Cask to do the rest of dependency management. After it's done
 (give it a few moments to download and compile things), close emacs
 and start it again:
 
-emacs --eval "(cask-install)"
+    emacs --eval "(cask-install)"
 
 This will do the actual fetching of the packages your Cask manifest
 specifies (and will probably take a while). Afterwards, you can close
