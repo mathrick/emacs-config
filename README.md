@@ -33,7 +33,7 @@ Next, make a .emacs file. It can be either a symlink (on Unix) to `grail.el`:
 
     $ ln -s ~/elisp/grail.el ~/.emacs
 
-*or* a file with the following contents (on Windows):
+**OR** a file with the following contents (on Windows):
 
     (load-file "~/elisp/grail.el")
 
@@ -83,7 +83,7 @@ However, the main parts that you need are as follows:
 3. `local/elisp/pallet-overrides.el`
 4. `bootstrap.el`
 
-You *DO NOT* need any other files or directories (though copying this
+You **DO NOT** need any other files or directories (though copying this
 README is advised). Nothing in `local/`, nothing in `dist`, none of
 the `*.el` files. Everything not mentioned above follows the normal
 Grail rules, and you can use as much or as little of it as you
