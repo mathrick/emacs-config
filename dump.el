@@ -1,37 +1,3 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;oraz w cc-mode
-
-;; Correct K&R braces. Hacky, needs more work
-(defun c-kill-hanging-braces ()
-  (interactive)
-  (while
-      (search-forward "{" nil t)
-    (when
-        (save-excursion
-          (let
-              ((line (line-number-at-pos)))
-            (if (search-backward-regexp
-                 (rx bol (zero-or-more whitespace) "{") nil t)
-                (not (eq line
-                         (line-number-at-pos))) t))) (backward-char) (insert "\n") (forward-char))))
-
-(defun indent-region-kill-hanging-braces ()
-  (save-excursion
-    (save-restriction
-      (condition-case nil
-          (progn
-            (narrow-to-region (region-beginning) (region-end))
-            (goto-char (point-min))
-            (c-kill-hanging-braces))
-        (error nil)))))
-
-;; (defadvice indent-region (before indent-region-advice activate)
-;;   (when (or
-;;          (eq major-mode 'c-mode)
-;;          (eq major-mode 'c++-mode))
-;;     (indent-region-kill-hanging-braces)))
-;; (defadvice c-indent-line-or-region (before indent-region-advice activate)
-;;   (indent-region-kill-hanging-braces))
 
 (add-hook 'c-mode-common-hook (lambda () (local-set-key [(return)] 'newline-and-indent)))
 (add-hook 'c-mode-common-hook (lambda () (local-set-key [(control return)] 'c-indent-new-comment-line)))

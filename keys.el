@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-h d") 'describe-function)
 
 ;; Dired
-(add-hook 'dired-mode-hook (lambda () (local-set-key "r" 'wdired-change-to-wdired-mode)))
+(local-hook-key 'dired-mode-hook "r" 'wdired-change-to-wdired-mode)
 
 ;; GDB
-(add-hook 'gud-mode-hook (lambda () (local-set-key [(control -)] 'gud-attach-dwim)))
+(local-hook-key 'gud-mode-hook [(control -)] 'gud-attach-dwim)
