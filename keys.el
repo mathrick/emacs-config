@@ -49,5 +49,5 @@
 (put 'camelCase-backward-word 'CUA 'move)
 
 ;; Python
-(loca-hook-key 'python-mode-hook (kbd "RET") 'newline-and-indent)
+(local-hook-key 'python-mode-hook (kbd "RET") 'newline-and-indent)
 
