@@ -1,2 +1,13 @@
 # How to bootstrap a fresh Emacs install
+========================================
 
+emacs -l ~/elisp/bootstrap.el
+
+This will make sure ELPA & MELPA are initialised, and will fetch
+Pallet & Cask to do the rest of dependency management. After it's
+done, close emacs and start it normally
+
+# It installed Pallet, but compilation said "Cannot open load file cask"
+=======================================================================
+
+Yeah, it does that. Doesn't seem to matter though.
