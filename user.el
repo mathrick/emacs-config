@@ -12,10 +12,5 @@
 ;; We need to coax it to play nice with grail
 (load-library "pallet-overrides")
 
-(mouse-wheel-mode t)
-(column-number-mode t)
-;; no bell please
-(setq ring-bell-function (lambda ()))
-
-;; don't truncate in vertically split windows
-(setq truncate-partial-width-windows nil)
+;;; Customisations begin here
+(require 'ls-lisp)
