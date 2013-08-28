@@ -1,4 +1,3 @@
-
 (add-hook 'c-mode-common-hook 'auto-fill-mode)
 (add-hook 'c-mode-common-hook 'glasses-mode)
 
