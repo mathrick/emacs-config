@@ -1,3 +1,10 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;; This file is a dump of everything from my old user.el that I  ;;; 
+;;; haven't properly migrated to the new and shiny, real Grail    ;;; 
+;;; structure yet. It's not loaded, and will eventually disappear ;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+
+
 
 ;; (require 'msf-abbrev)
 ;; (global-msf-abbrev-mode t) ;; for all modes with abbrevs or
