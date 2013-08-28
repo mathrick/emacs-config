@@ -44,3 +44,34 @@
 ;;     (indent-region-kill-hanging-braces)))
 ;; (defadvice c-indent-line-or-region (before indent-region-advice activate)
 ;;   (indent-region-kill-hanging-braces))
+
+;; Various text manip
+(defun uniq-lines () 
+  (interactive)
+  (replace-regexp "\\(^.+$\\)\\(\n\\1\\)*" "\\1"))
+
+(defun wrap-region-with-text (text)
+  (interactive "MWrap with text:")
+  (save-restriction
+    (narrow-to-region (region-beginning) (region-end))
+    (beginning-of-buffer)
+    (insert text)
+    (end-of-buffer)
+    (insert text)))
+
+(defun goto-char-forward (char) 
+  (interactive "cGo forward to char: ")
+  (while (not (equal (char-after) char))
+    (forward-char)))
+
+(defun goto-char-backward (char) 
+  (interactive "cGo backward to char: ")
+  (while (not (equal (char-after) char))
+    (backward-char)))
+
+(defun re-search-forward-or-backward (arg)
+  (interactive "MSearch regexp (forward or backward): ")
+  (let ((pos (or (search-forward-regexp arg nil t)
+                 (search-backward-regexp arg nil t))))
+    (when pos
+      (goto-char pos))))

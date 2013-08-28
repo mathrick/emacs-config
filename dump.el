@@ -1,25 +1,8 @@
 
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(return)] 'newline-and-indent)))
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(control return)] 'c-indent-new-comment-line)))
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(control j)] 'newline)))
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(control right)] 'c-forward-into-nomenclature)))
-(add-hook 'c-mode-common-hook (lambda () (local-set-key [(control left)] 'c-backward-into-nomenclature)))
-;; (add-hook 'c-mode-common-hook (lambda () (local-set-key [(control shift left)] 'c-backward-into-nomenclature)))
-;; (add-hook 'c-mode-common-hook (lambda () (local-set-key [(control shift right)] 'c-forward-into-nomenclature)))
-;; (add-hook 'py-mode-hook (lambda () (local-set-key [(control shift left)] 'py-backward-into-nomenclature)))
-;; (add-hook 'py-mode-hook (lambda () (local-set-key [(control shift right)] 'py-forward-into-nomenclature)))
-(add-hook 'python-mode-hook (lambda () (local-set-key [(return)] 'newline-and-indent)))
-
-(put 'c-backward-into-nomenclature 'CUA 'move)
-(put 'c-forward-into-nomenclature 'CUA 'move)
-
-(put 'camelCase-forward-word 'CUA 'move)
-(put 'camelCase-backward-word 'CUA 'move)
-
 (add-hook 'c-mode-common-hook 'auto-fill-mode)
 (add-hook 'c-mode-common-hook 'glasses-mode)
 
-;; ktoś zdupił styl "gnu", trzeba ręcznie poprawiać :\
+;; The built-in GNU style is broken, fix it
 (defconst my-c-style
   '("gnu" (c-offsets-alist . ((arglist-close . c-lineup-arglist)
                               (substatement-open   . 0)
@@ -29,51 +12,7 @@
                               (knr-argdecl-intro   . -)))))
 (c-add-style "Corrected GNU" my-c-style nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;zróbmy pliterki w manie
-(setq manual-program "man -Tlatin1")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Moje funkcje - regexpy i inne znakodziałajki
-(defun uniq-lines () (interactive) (replace-regexp "\\(^.+$\\)\\(
-\\1\\)*" "\\1"))
-(defun goto-char-forward (char) (while  (not (equal (char-after) char)) (forward-char)))
-(defun goto-char-backward (char) (while  (not (equal (char-after) char)) (backward-char)))
-(defun goto-char-forward-command (char) (interactive "cGo forward to char: ") (goto-char-forward char))
-(defun goto-char-backward-command (char) (interactive "cGo backward to char: ") (goto-char-backward char))
-(defun wrap-region-with-text (text)
-                  (save-restriction
-                    (narrow-to-region (region-beginning) (region-end))
-                    (beginning-of-buffer)
-                    (insert text)
-                    (end-of-buffer)
-                    (insert text)))
-(global-set-key [(control c) (control t)] (lambda (text) (interactive "MWrap with text:") (wrap-region-with-text text)))
-(global-set-key [(meta control n)] 'goto-char-forward-command)
-(global-set-key [(meta control p)] 'goto-char-backward-command)
-(global-set-key "\C-xRB" 're-builder)
-(global-set-key "\C-xRS" (lambda (arg) (interactive "MSearch regexp:") (re-search-forward arg)))
-(global-set-key "\C-xRb" (lambda (arg) (interactive "MSearch regexp backward:") (re-search-backward arg)))
-(global-set-key "\C-xRR" 'replace-regexp)
-(global-set-key "\C-xRQ" 'query-replace-regexp)
-(global-set-key "\C-xRA" (lambda (arg) (interactive "MSearch regexp (forward or backward): ") ;Szukaj w przod, jak nie to w tył
- (cond ((setq val (search-forward-regexp arg nil t)) (goto-char val))
-      ((setq val (search-backward-regexp arg nil t)) (goto-char val)))))
-(global-set-key "\C-xRW"
-                (lambda (arg) (interactive "MSearch regexp wrap-around:")
-                  (cond
-                   ((progn
-                      (setq pt (point))
-                      (goto-char (point-min))
-                      (search-forward-regexp arg nil t)) ())
-                   (t (progn
-                        (goto-char pt)
-                        (princ (concat "Regexp [\" " arg " \"] not found")))))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (put 'narrow-to-region 'disabled nil)
-
 (put 'upcase-region 'disabled nil)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
