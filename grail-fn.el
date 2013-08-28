@@ -65,12 +65,9 @@
 
    format SIGNAL-TRAP for use in error messages.
   "
-  (format "(%s , \"%s\")"
+  (format "(%s, \"%s\")"
     (symbol-name (car signal-trap))
-
-    (if (listp (cdr signal-trap))
-      (cadr signal-trap)
-      (cdr signal-trap)) ))
+    (rest signal-trap)))
 
 
 (defun grail-insert-error ( message )
@@ -186,9 +183,9 @@
     ((diagnostics (diagnostic-load-elisp-file path)))
 
     (if diagnostics
-      (throw 'grail-trap (list
-                           (format "grail: %s aborted loading" path)
-                           (format-signal-trap diagnostics)))
+        (throw 'grail-trap (list
+                            (format "grail: %s aborted loading" path)
+                            (format-signal-trap diagnostics)))
       t) ))
 
 (defun load-elisp-if-exists ( path )
