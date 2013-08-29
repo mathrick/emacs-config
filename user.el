@@ -15,4 +15,6 @@
 ;;; Customisations begin here
 (require 'ls-lisp)
 
+(add-to-list 'Info-directory-list (expand-file-name "info" grail-elisp-root))
+
 (server-mode t)
