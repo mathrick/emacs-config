@@ -7,6 +7,7 @@
 (depends-on "highlight-parentheses")
 (depends-on "melpa")
 (depends-on "mic-paren")
+(depends-on "multiple-cursors")
 (depends-on "nsis-mode")
 (depends-on "org")
 (depends-on "pallet")
