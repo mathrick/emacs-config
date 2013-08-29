@@ -1,8 +1,8 @@
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(LaTeX-Omega-command "xelatex")
  '(TeX-Omega-mode t)
  '(TeX-PDF-mode t)
@@ -302,6 +302,7 @@ The document was typeset with
  '(save-place t nil (saveplace))
  '(scheme-mit-dialect nil)
  '(scheme-program-name "scheme48")
+ '(scroll-bar-mode (quote right))
  '(scroll-preserve-screen-position t)
  '(semanticdb-global-mode t nil (semantic/db))
  '(server-done-hook (quote ((lambda nil (delete-frame)))))
@@ -342,10 +343,10 @@ The document was typeset with
  '(yas/wrap-around-region (quote cua)))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "Envy Code R"))))
  '(diff-added ((t (:background "#98eb98" :foreground "black"))))
  '(diff-changed ((t (:foreground "MediumBlue"))))
