@@ -25,6 +25,12 @@
   (pt/cask-up)
   (cask-install))
 
+(defun bootstrap-finish ()
+  (display-about-screen)
+  (delete-other-windows)
+  (message "Bootstrap complete!"))
+
 (bootstrap-melpa)
 (bootstrap-pallet)
 (bootstrap-packages)
+(bootstrap-finish)
