@@ -162,7 +162,6 @@ The document was typeset with
  '(cua-enable-region-auto-help t)
  '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
- '(custom-file "~/.emacs-custom")
  '(default-justification (quote left))
  '(diff-switches "-u")
  '(ecb-layout-window-sizes nil)
@@ -192,7 +191,7 @@ The document was typeset with
  '(global-semantic-highlight-edits-mode nil nil (semantic/util-modes))
  '(global-semantic-idle-completions-mode nil nil (semantic/idle))
  '(global-semantic-idle-scheduler-mode t nil (semantic/idle))
- '(global-semantic-idle-summary-mode t nil (semantic/idle))
+ '(global-semantic-idle-summary-mode t)
  '(global-semantic-show-parser-state-mode nil nil (semantic/util-modes))
  '(global-semantic-show-unmatched-syntax-mode nil nil (semantic/util-modes))
  '(global-semantic-stickyfunc-mode t nil (semantic/util-modes))
@@ -214,8 +213,8 @@ The document was typeset with
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
  '(inferior-lisp-program "sbcl")
- '(ispell-dictionary "en_GB")
- '(ispell-program-name "/usr/bin/hunspell")
+ '(ispell-dictionary "en_GB" t)
+ '(ispell-program-name "/usr/bin/hunspell" t)
  '(jde-jdk-registry (quote (("1.6.0.20" . "/usr/lib/jvm/java-6-sun"))))
  '(jde-key-bindings (list (cons "[? ? ?]" (quote jde-run-menu-run-applet)) (cons "[? ? ?]" (quote jde-build)) (cons "[? ? ?]" (quote jde-compile)) (cons "[? ? ?]" (quote jde-debug)) (cons "[? ? ?]" (quote jde-find)) (cons "[? ? ?]" (quote jde-open-class-at-point)) (cons "[? ? ?]" (quote jde-bsh-run)) (cons "[? ? ?]" (quote jde-gen-println)) (cons "[? ? ?]" (quote jde-help-browse-jdk-doc)) (cons "[? ? ?]" (quote jde-save-project)) (cons "[? ? ?]" (quote jde-wiz-update-class-list)) (cons "[? ? ?]" (quote jde-run)) (cons "[? ? ?]" (quote speedbar-frame-mode)) (cons "[? ? ?]" (quote jde-jdb-menu-debug-applet)) (cons "[? ? ?]" (quote jde-help-symbol)) (cons "[? ? ?]" (quote jde-show-superclass-source)) (cons "[? ? ?]" (quote jde-open-class-at-point)) (cons "[? ? ?]" (quote jde-import-find-and-import)) (cons "[? ? ?e]" (quote jde-wiz-extend-abstract-class)) (cons "[? ? ?f]" (quote jde-gen-try-finally-wrapper)) (cons "[? ? ?i]" (quote jde-wiz-implement-interface)) (cons "[? ? ?j]" (quote jde-javadoc-autodoc-at-line)) (cons "[? ? ?o]" (quote jde-wiz-override-method)) (cons "[? ? ?t]" (quote jde-gen-try-catch-wrapper)) (cons "[? ? ?z]" (quote jde-import-all)) (cons "[? ? ?]" (quote jde-run-etrace-prev)) (cons "[? ? ?]" (quote jde-run-etrace-next)) (cons "[(control c) (control ? )]" (quote jde-complete)) (cons "[(control c) (control v) ?.]" (quote jde-complete-in-line))))
  '(line-number-display-limit-width 1000)
@@ -274,6 +273,7 @@ The document was typeset with
 \\pagestyle{empty}             % do not remove")
  '(org-hide-leading-stars t)
  '(org-latex-to-pdf-process (quote ("latexify.sh %f")))
+ '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-special-blocks org-vm org-wl org-w3m)))
  '(org-odd-levels-only t)
  '(org-pretty-entities t)
  '(org-todo-keywords (quote ((sequence "TODO" "DONE") (sequence "BUG" "WISHLIST" "|" "FIXED" "WONTFIX" "NOTABUG") (sequence "PENDING" "REPEAT" "|" "FAILED" "SUCCESS"))))
