@@ -5,26 +5,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 
-
-;; (require 'msf-abbrev)
-;; (global-msf-abbrev-mode t) ;; for all modes with abbrevs or
-;; ;; M-x msf-abbrev-mode RET ;; for only one buffer
-
-;; ;; You may also want to make some bindings:
-;; (global-set-key (kbd "C-c l") 'msf-cmd-goto-root)
-;; (global-set-key (kbd "C-c A") 'msf-cmd-define)
-;; (global-set-key [(control tab)] 'msf-cmd-make-choice)
-
-
-;; (add-to-list 'load-path "~/elisp/slime/")  ; your SLIME directory
-;; (add-to-list 'load-path "~/elisp/slime/contrib/")  ; your SLIME directory
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq load-path (remove "/usr/share/emacs-snapshot/site-lisp/slime" load-path))
-(require 'slime)
-(slime-setup '(slime-fancy slime-indentation slime-asdf 
-               slime-mrepl slime-media ;; slime-mdot-fu
-               ))
-
 (defun define-cl-indent (el)
   (put (car el) 'common-lisp-indent-function 
        (if (symbolp (cdr el))
