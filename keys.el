@@ -17,10 +17,14 @@
 (global-set-key (kbd "C-h a")   'apropos)
 
 ;; Text manip and navigation
-(global-set-key (kbd "C-f") 'goto-char-forward)
-(global-set-key (kbd "C-b") 'goto-char-backward)
+(global-set-key (kbd "C-;") 'iy-go-to-char)
+(global-set-key (kbd "C-,") 'iy-go-to-char-backward)
+(global-set-key (kbd "C-x C-;") 'iy-go-to-char-continue)
+(global-set-key (kbd "C-x C-,") 'iy-go-to-char-continue-backward)
+;; Does not actually work, github issue pending
+(eval-after-load 'iy-go-to-char (lambda () (define-key iy-go-to-char-keymap (kbd "RET") 'iy-go-to-char-done)))
 
-(global-set-key [(control c) (control t)] (lambda (text)  (wrap-region-with-text text)))
+(global-set-key (kbd "C-c C-t") 'wrap-region-with-text)
 
 (global-set-key (kbd "C-x RB") 're-builder)
 (global-set-key (kbd "C-x RS") 're-search-forward)
@@ -65,7 +69,6 @@
 (local-hook-key 'python-mode-hook (kbd "RET") 'newline-and-indent)
 
 ;; Paredit
-;; Customise keys
 (eval-after-load "paredit"
   '(let ((map paredit-mode-map))
      (mapcar (lambda (key)
