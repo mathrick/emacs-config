@@ -12,4 +12,8 @@
     (require 'slime)
     (slime-setup '(slime-fancy slime-indentation slime-asdf 
                                slime-mrepl slime-media ;; slime-mdot-fu
-                               ))))
+                               ))
+    (add-hook 'lisp-mode-hook 'slime-mode)
+    (add-hook 'slime-mode-hook 'turn-on-redshank-mode)
+    (add-hook 'slime-repl-mode-hook (lambda () (local-unset-key (kbd "RET")))) 
+    (add-hook 'slime-xref-mode-hook (lambda () (local-unset-key (kbd "RET"))))))

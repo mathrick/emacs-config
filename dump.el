@@ -4,21 +4,7 @@
 ;;; structure yet. It's not loaded, and will eventually disappear ;;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
-(add-hook 'lisp-mode-hook 'paredit-mode)
-(add-hook 'lisp-mode-hook 'slime-mode)
-(add-hook 'slime-mode-hook 'turn-on-redshank-mode)
-(add-hook 'slime-repl-mode-hook (lambda () (local-unset-key [(return)])))
-(add-hook 'slime-xref-mode-hook (lambda () (local-unset-key [(return)])))
-
 ;; (load-file "~/elisp/dvc/dvc-load.el")
-
-(require 'info-look)
-(info-lookup-add-help
-    :mode 'lisp-mode
-    :regexp "[^][()'\" \t\n]+"
-    :ignore-case t
-    :doc-spec '(("(ansicl)Symbol Index" nil nil nil)))
-(global-set-key [(control h) (control i)] 'info-lookup-symbol)
 
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/school.org"

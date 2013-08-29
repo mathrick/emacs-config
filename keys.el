@@ -42,7 +42,6 @@
 (global-set-key (kbd "C-?") 'er/expand-region)
 (global-set-key (kbd "M-?") 'er/contract-region)
 
-
 ;; Dired
 (local-hook-key 'dired-mode-hook "r" 'wdired-change-to-wdired-mode)
 
@@ -92,3 +91,6 @@
 (local-hook-key 'lisp-mode-hook (kbd "TAB")       'slime-indent-and-complete-symbol)
 (local-hook-key 'lisp-mode-hook (kbd "C-c S-RET") 'slime-macroexpand-1-inplace)
 (local-hook-key 'lisp-mode-hook (kbd "C-c M-M")   'slime-macroexpand-all-inplace)
+
+;; Mode-specific info lookup (for ANSI CL in Info format)
+(global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
