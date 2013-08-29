@@ -145,3 +145,5 @@
     :regexp "[^][()'\" \t\n]+"
     :ignore-case t
     :doc-spec '(("(ansicl)Symbol Index" nil nil nil)))
+
+(key-chord-mode 1)

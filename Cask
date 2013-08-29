@@ -7,6 +7,7 @@
 (depends-on "expand-region")
 (depends-on "highlight-parentheses")
 (depends-on "iy-go-to-char")
+(depends-on "key-chord")
 (depends-on "melpa")
 (depends-on "mic-paren")
 (depends-on "multiple-cursors")

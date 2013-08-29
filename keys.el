@@ -17,8 +17,8 @@
 (global-set-key (kbd "C-h a")   'apropos)
 
 ;; Text manip and navigation
-(global-set-key (kbd "C-;") 'iy-go-to-char)
-(global-set-key (kbd "C-,") 'iy-go-to-char-backward)
+(key-chord-define-global "l;" 'iy-go-to-char)
+(key-chord-define-global ";'" 'iy-go-to-char-backward)
 (global-set-key (kbd "C-x C-;") 'iy-go-to-char-continue)
 (global-set-key (kbd "C-x C-,") 'iy-go-to-char-continue-backward)
 ;; Does not actually work, github issue pending
