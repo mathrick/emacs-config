@@ -73,6 +73,7 @@ However, the main parts that you need are as follows:
 
 1. `grail-*.el`
    Those are Grail files, and the backbone of the whole thing.
+
 2. `Cask`
    This is where packages needed by the code are recorded. You can
    safely remove all but `melpa`, `cask` and `pallet`. After
@@ -82,15 +83,31 @@ However, the main parts that you need are as follows:
 
    Note that for non-ELPA packages, you will probably need to use
    Grail profiles and installers
+
 3. `local/elisp/pallet-overrides.el`
+
 4. `bootstrap.el`
 
 You **DO NOT** need any other files or directories (though copying this
-README is advised). Nothing in `local/`, nothing in `dist`, none of
+README is advised). Nothing in `local/`, nothing in `dist/`, none of
 the `*.el` files. Everything not mentioned above follows the normal
 Grail rules, and you can use as much or as little of it as you
 need. Those rules are explained on [Grail's Emacswiki
 page](http://www.emacswiki.org/emacs/Grail).
+
+Known issues
+------------
+
+1. Grail copy assumes `~/elisp`. It should just derive the root from
+   where it's being loaded from
+
+2. Headless init (ie. `emacs --daemon`) breaks. I don't know if it's
+   my fault or Grail's, and it will be a royal pain to debug
+
+3. Grail needs a few more fixes and cleanups, and pushing upstream
+
+4. Pallet and Cask assume `~/.emacs.d`, and need messy overrides. They
+   should allow explicit overrides
 
 Licence
 =======
