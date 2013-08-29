@@ -15,8 +15,4 @@
 ;;; Customisations begin here
 (require 'ls-lisp)
 
-;; TODO: migrate to custom
-;; do not bug me about saving my abbreviations
-(setq save-abbrevs nil)
-
 (server-mode t)

@@ -1,8 +1,8 @@
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(LaTeX-Omega-command "xelatex")
  '(TeX-Omega-mode t)
  '(TeX-PDF-mode t)
@@ -299,10 +299,10 @@ The document was typeset with
  '(rw-hunspell-make-dictionary-menu t)
  '(rw-hunspell-use-rw-ispell t)
  '(safe-local-variable-values (quote ((js-indent-level . 4) (encoding . utf-8) (package . F2CL) (Package . F2CL) (Package . Maxima) (Package . containers) (Package . LINJ) (pbook-monochrome . t) (pbook-style . article) (pbook-use-toc . t) (pbook-author . "Luke Gorrie, with modifications by Paul Khuong") (Package . CCL) (indent-tabs) (Encoding . utf-8) (show-trailing-whitespace . t) (Readtable . GLISP) (Package . SGML) (Package . LALR) (Package . DRAKMA) (Package . metabang\.moptilities) (Package . CXML) (readtable . runes) (Package . computed-class) (Package . CL-INTERPOL) (Package . CLIMACS-JAVA-SYNTAX) (Package . CLIMACS-GUI) (Package . CLIMACS-C-SYNTAX) (Package . CLIMACS-LISP-SYNTAX) (Package . CLIMACS) (Package . CLIMACS-COMMANDS) (Package . COMMON-LISP-USER) (Package . CLIMACS-PROLOG-SYNTAX) (Package . DREI-LISP-SYNTAX) (Package . DREI-SYNTAX) (Package . CLIM-POSTSCRIPT) (Package . CLIM-CLX) (Lowercase . T) (Package . Xlib) (Log . clx\.log) (Package . AUTOMATON) (Package . GOATEE) (Package . CLIMI) (readtable . py-ast-user-readtable) (package . clpython) (readtable . py-user-readtable) (package . clpython\.parser) (readtable . py-ast-readtable) (Package . bind) (syntax . ANSI-COMMON-LISP) (Package SERIES :use "COMMON-LISP" :colon-mode :external) (Package . CHUNGA) (Package . FLEXI-STREAMS) (package . puri) (syntax . COMMON-LISP) (Package ITERATE :use "COMMON-LISP" :colon-mode :external) (Package . DREI-COMMANDS) (Package . clim-internals) (Package . DREI) (Package . DREI-EDITING) (Package . User) (Package . MCCLIM-FREETYPE) (Package . ESA) (Package . CLIM-INTERNALS) (Indent-tabs-mode . NIL) (movitz-mode . t) (Package . CL-PPCRE) (Syntax . ANSI-Common-Lisp) (Syntax . Common-lisp) (Package . XLIB) (Lowercase . Yes) (Syntax . Common-Lisp) (py-indent-offset . 4) (Package . CL-USER) (Package . HUNCHENTOOT) (package . net\.html\.generator) (unibyte . t) (Syntax . COMMON-LISP) (Package . CL-WHO) (Base . 10))))
+ '(save-abbrevs nil)
  '(save-place t nil (saveplace))
  '(scheme-mit-dialect nil)
  '(scheme-program-name "scheme48")
- '(scroll-bar-mode (quote right))
  '(scroll-preserve-screen-position t)
  '(semanticdb-global-mode t nil (semantic/db))
  '(server-done-hook (quote ((lambda nil (delete-frame)))))
@@ -343,10 +343,10 @@ The document was typeset with
  '(yas/wrap-around-region (quote cua)))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "Envy Code R"))))
  '(diff-added ((t (:background "#98eb98" :foreground "black"))))
  '(diff-changed ((t (:foreground "MediumBlue"))))
