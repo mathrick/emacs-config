@@ -4,28 +4,6 @@
 ;;; structure yet. It's not loaded, and will eventually disappear ;;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
-
-(defun define-cl-indent (el)
-  (put (car el) 'common-lisp-indent-function 
-       (if (symbolp (cdr el))
-           (get (cdr el) 'common-lisp-indent-function)
-         (cadr el))))
-
-(define-cl-indent '(&rest (&whole 2 &rest 2)))
-(define-cl-indent '(if   (4 4 2)))
-(define-cl-indent '(restart-bind . handler-bind))
-
-;; Parenscript/Raphaël JS
-(define-cl-indent '(defaccesor 999))
-(define-cl-indent '(defpsmethod 999))
-(define-cl-indent '(defattr . tagbody))
-
-(load-file "~/elisp/redshank/redshank.el")
-
-(add-hook 'lisp-mode-hook (lambda () (local-set-key [(return)] 'newline-and-indent)))
-(add-hook 'lisp-mode-hook (lambda () (local-set-key (kbd "TAB") 'slime-indent-and-complete-symbol)))
-(add-hook 'lisp-mode-hook (lambda () (local-set-key (kbd "C-c S-<return>") 'slime-macroexpand-1-inplace)))
-(add-hook 'lisp-mode-hook (lambda () (local-set-key (kbd "C-c M-M") 'slime-macroexpand-all-inplace)))
 (add-hook 'lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook 'slime-mode)
 (add-hook 'slime-mode-hook 'turn-on-redshank-mode)

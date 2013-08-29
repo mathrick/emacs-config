@@ -83,3 +83,8 @@
 
 ;; Lisp
 (local-hook-key 'emacs-lisp-mode-hook (kbd "C-c C-c") 'eval-defun)
+
+(local-hook-key 'lisp-mode-hook (kbd "RET")       'newline-and-indent)
+(local-hook-key 'lisp-mode-hook (kbd "TAB")       'slime-indent-and-complete-symbol)
+(local-hook-key 'lisp-mode-hook (kbd "C-c S-RET") 'slime-macroexpand-1-inplace)
+(local-hook-key 'lisp-mode-hook (kbd "C-c M-M")   'slime-macroexpand-all-inplace)

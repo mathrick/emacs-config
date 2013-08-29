@@ -120,4 +120,19 @@
 (add-hook 'lisp-mode-hook 'highlight-parentheses-mode)
 (add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
 
+(defun define-cl-indent (el)
+  (put (car el) 'common-lisp-indent-function 
+       (if (symbolp (cdr el))
+           (get (cdr el) 'common-lisp-indent-function)
+         (cadr el))))
+
+(define-cl-indent '(&rest (&whole 2 &rest 2)))
+(define-cl-indent '(if   (4 4 2)))
+(define-cl-indent '(restart-bind . handler-bind))
+
+;; Parenscript/Raphaël JS
+(define-cl-indent '(defaccesor 999))
+(define-cl-indent '(defpsmethod 999))
+(define-cl-indent '(defattr . tagbody))
+
 (load-library "slime-config")
