@@ -4,6 +4,7 @@
 (depends-on "cask")
 (depends-on "ecb")
 (depends-on "emmet-mode")
+(depends-on "expand-region")
 (depends-on "highlight-parentheses")
 (depends-on "melpa")
 (depends-on "mic-paren")
