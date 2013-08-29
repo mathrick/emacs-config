@@ -4,11 +4,11 @@
 (windmove-default-keybindings 'meta)
 
 ;; List and sexp navigation
-(global-set-key "C-M-<right>" 'forward-list)
-(global-set-key "C-M-<left>"  'backward-list)
-(global-set-key "M-n"         'up-list)
-(global-set-key "C-s-<right>" 'forward-sexp)
-(global-set-key "C-s-<left>"  'backward-sexp)
+(global-set-key (kbd "C-M-<right>") 'forward-list)
+(global-set-key (kbd "C-M-<left>")  'backward-list)
+(global-set-key (kbd "M-n")         'up-list)
+(global-set-key (kbd "C-s-<right>") 'forward-sexp)
+(global-set-key (kbd "C-s-<left>")  'backward-sexp)
 
 ;; Misc
 (global-set-key (kbd "C-c k")   'browse-kill-ring)
