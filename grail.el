@@ -108,11 +108,16 @@
     ;;
 
     ;; the first priority is the USER_ELISP environment variable
-    ;; the second priority is
+
+    ;; the second priority is where grail.el lives, taking into
+    ;; account possible symlinks
+    
     (defvar grail-elisp-root
-      (expand-file-name (if (getenv "USER_ELISP")
-                            (concat (getenv "USER_ELISP") "/")
-                          "~/elisp/"))
+      (if (getenv "USER_ELISP")
+          (expand-file-name (concat (getenv "USER_ELISP") "/"))
+        (let* ((file load-file-name)
+               (symlink (file-symlink-p file)))
+          (file-name-directory (or symlink file))))
       "The root of the user's elisp tree")
 
     ;; abort the rest of grail if the USER_ELISP tree cannot be found.
