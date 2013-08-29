@@ -2,7 +2,6 @@
 (source "gnu" "http://elpa.gnu.org/packages/")
 
 (depends-on "cask")
-(depends-on "cedet")
 (depends-on "ecb")
 (depends-on "emmet-mode")
 (depends-on "highlight-parentheses")
@@ -15,6 +14,5 @@
 (depends-on "paredit-everywhere")
 (depends-on "paredit-menu")
 (depends-on "redshank")
-(depends-on "semantic")
 (depends-on "wgrep")
 (depends-on "yasnippet")
