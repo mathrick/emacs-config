@@ -13,3 +13,10 @@
 (add-to-list 'Info-directory-list (expand-file-name "info" grail-elisp-root))
 
 (server-mode t)
+
+(setq org-agenda-files (list "~/org/work.org"
+                             "~/org/projects.org"
+                             "~/org/misc.org"))
+
+(set-language-environment "UTF-8")
+

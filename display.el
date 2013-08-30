@@ -23,6 +23,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
 
@@ -147,3 +148,11 @@
     :doc-spec '(("(ansicl)Symbol Index" nil nil nil)))
 
 (key-chord-mode 1)
+
+;;; Guess basic indent offsets
+(dtrt-indent-mode 1)
+
+;; (global-pabbrev-mode)
+
+(require 'yasnippet)
+(add-to-list 'yas/root-directory (expand-file-name "local/snippets" grail-elisp-root))

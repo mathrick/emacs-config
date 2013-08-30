@@ -4,111 +4,6 @@
 ;;; structure yet. It's not loaded, and will eventually disappear ;;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
-;; (load-file "~/elisp/dvc/dvc-load.el")
-
-(setq org-agenda-files (list "~/org/work.org"
-                             "~/org/school.org"
-                             "~/org/projects.org"
-                             "~/org/clonebofoo.org"
-                             "~/org/misc.org"
-                             "~/Dev/Lisp/faktoid/TODO"
-                             "~/Dev/Lisp/faktoid/BUGS"))
-
-;; (load "~/elisp/pabbrev.el")
-;; (global-pabbrev-mode)
-
-(add-to-list 'load-path "~/elisp")
-(add-to-list 'load-path "~/elisp/emacs-rails")
-;; (require 'snippet)
-;; (require 'rails)
-
-(load-file "~/elisp/nsis-mode.el")
-(setq auto-mode-alist (append '(("\\.\\([Nn][Ss][Ii]\\)$" .
-                                 nsis-mode)) auto-mode-alist))
-(setq auto-mode-alist (append '(("\\.\\([Nn][Ss][Hh]\\)$" .
-                                 nsis-mode)) auto-mode-alist))
-
-;; YASnippet
-(add-to-list 'load-path
-             "~/elisp/dist/yasnippet-0.6.1c/")
-(require 'yasnippet) ;; not yasnippet-bundle
-(setq yas/root-directory '("~/elisp/local/snippets" "~/elisp/dist/yasnippet-0.6.1c/snippets"))
-(yas/initialize)
-(yas/reload-all)
-
-;;; Guess basic indent offsets
-(add-to-list 'load-path "~/elisp/dist/dtrt-indent/")
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-
-;; (load "~/elisp/dist/nxhtml/autostart.el")
-
-(set-language-environment "UTF-8")
-(setq slime-net-coding-system 'utf-8)
-(pushnew '(utf-8 t "utf-8") slime-net-valid-coding-systems :key #'car)
-(setq slime-lisp-implementations
-      '(;; (sbcl-kabinett ("sbcl" "--core" "/home/mathrick/Dev/Lisp/kabinett/sbcl.core")
-        ;;                :init-function (lambda ()
-        ;;                                 (slime-repl-eval-string " (progn
-        ;;                                                             (asdf:oos 'asdf:load-op :kabinett-test)
-        ;;                                                             (in-package :kabinett-test))")))
-        ;; (sbcl-kabinett-clean ("sbcl" "--core" "/home/mathrick/Dev/Lisp/kabinett/sbcl.core"))
-        (sbcl-clean ("sbcl"))
-        ;; (sbcl-goo ("sbcl" "--core" "/home/mathrick/Dev/Lisp/goo-canvas/sbcl.core"))
-        ;; (sbcl-gtk ("sbcl" "--core" "/home/mathrick/Dev/BMB/tools/gtk.core"))
-        (ccl ("/home/mathrick/Dev/ccl/lx86cl64"))
-        (ecl ("ecl") :coding-system iso-latin-1-unix)))
-(setq slime-default-lisp 'sbcl-clean)
-
-(defun rm-jlpt-field ()
-  (interactive)
-  (save-excursion
-    (let ((eol (point-at-eol))
-          (point (point)))
-      (forward-char)
-      (when (search-forward-regexp "[[:space:]]" eol 'bound)
-        (goto-char (match-beginning 0)))
-      (when (search-forward-regexp "[^[:space:]]" eol 'bound)
-        (goto-char (match-beginning 0)))
-      (delete-region point (point)))))
-
-(defun forward-jlpt-field ()
-  (interactive)
-  (condition-case var
-    (let ((eol (point-at-eol))
-          (point (point)))
-      (forward-char)
-      (search-forward-regexp "[[:space:]]" eol)
-      (search-forward-regexp "[^[:space:]]" eol)
-      (backward-char))
-    ('search-failed (next-line))))
-
-(defun backward-jlpt-field ()
-  (interactive)
-  (condition-case var
-    (let ((bol (point-at-bol))
-          (point (point)))
-      (backward-char)
-      (search-backward-regexp "[^[:space:]]" bol)
-      (search-backward-regexp "[[:space:]]" bol)
-      (forward-char)
-      (unless (>= (current-column) goal-column)
-        (signal 'search-failed "Search failed")))
-    ('search-failed 
-     (previous-line)
-     (end-of-line)
-     (search-backward-regexp "[[:space:]]" (point-at-bol))
-     (forward-char))))
-
-(defun jlpt-kanji-mode ()
-  (interactive)
-  (setf goal-column 16)
-  (local-set-key [left] 'backward-jlpt-field)
-  (local-set-key [right] 'forward-jlpt-field)
-  (local-set-key [SPC] 'rm-jlpt-field))
-
-(put 'downcase-region 'disabled nil)
-
 (defvar lisp-symbol-segment
   "\\([^-]*\\)\\(-\\|$\\)"
   "Regexp to match a single segment in a lisp symbol name (ie. \"foo-\" in \"foo-bar-baz\").")
@@ -208,12 +103,6 @@
         (setf (symbol-function 'all-completions) old-all-completions))))
 
 (ad-activate 'lisp-complete-symbol)
-
-(load-file "~/elisp/php-mode.el")
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
-
-;; Compatibility hack for JDEE
-(defalias 'turn-on-font-lock-if-enabled 'turn-on-font-lock-if-desired)
 
 ;;; Vim
 

@@ -109,3 +109,52 @@ scan-error if not."
         (cua-delete-region))
     (paredit-forward-delete)))
 
+(defun rm-jlpt-field ()
+  (interactive)
+  (save-excursion
+    (let ((eol (point-at-eol))
+          (point (point)))
+      (forward-char)
+      (when (search-forward-regexp "[[:space:]]" eol 'bound)
+        (goto-char (match-beginning 0)))
+      (when (search-forward-regexp "[^[:space:]]" eol 'bound)
+        (goto-char (match-beginning 0)))
+      (delete-region point (point)))))
+
+(defun forward-jlpt-field ()
+  (interactive)
+  (condition-case var
+    (let ((eol (point-at-eol))
+          (point (point)))
+      (forward-char)
+      (search-forward-regexp "[[:space:]]" eol)
+      (search-forward-regexp "[^[:space:]]" eol)
+      (backward-char))
+    ('search-failed (next-line))))
+
+(defun backward-jlpt-field ()
+  (interactive)
+  (condition-case var
+    (let ((bol (point-at-bol))
+          (point (point)))
+      (backward-char)
+      (search-backward-regexp "[^[:space:]]" bol)
+      (search-backward-regexp "[[:space:]]" bol)
+      (forward-char)
+      (unless (>= (current-column) goal-column)
+        (signal 'search-failed "Search failed")))
+    ('search-failed 
+     (previous-line)
+     (end-of-line)
+     (search-backward-regexp "[[:space:]]" (point-at-bol))
+     (forward-char))))
+
+(defun jlpt-kanji-mode ()
+  (interactive)
+  (setf goal-column 16)
+  (local-set-key [left] 'backward-jlpt-field)
+  (local-set-key [right] 'forward-jlpt-field)
+  (local-set-key [SPC] 'rm-jlpt-field))
+
+;; Compatibility hack for JDEE
+(defalias 'turn-on-font-lock-if-enabled 'turn-on-font-lock-if-desired)
