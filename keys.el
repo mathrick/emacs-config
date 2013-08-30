@@ -3,6 +3,9 @@
 ;; Windmove
 (windmove-default-keybindings 'meta)
 
+;; Remapping of standard keys
+(define-key key-translation-map (kbd "s-<tab>") (kbd "M-TAB"))
+
 ;; List and sexp navigation
 (global-set-key (kbd "C-M-<right>") 'forward-list)
 (global-set-key (kbd "C-M-<left>")  'backward-list)
@@ -88,6 +91,7 @@
 
 ;; Lisp
 (local-hook-key 'emacs-lisp-mode-hook (kbd "C-c C-c") 'eval-defun)
+(local-hook-key 'emacs-lisp-mode-hook (kbd "RET")     'newline-and-indent)
 
 (local-hook-key 'lisp-mode-hook (kbd "RET")       'newline-and-indent)
 (local-hook-key 'lisp-mode-hook (kbd "TAB")       'slime-indent-and-complete-symbol)
