@@ -11,6 +11,7 @@
 (depends-on "key-chord")
 (depends-on "melpa")
 (depends-on "mic-paren")
+(depends-on "minimap")
 (depends-on "multiple-cursors")
 (depends-on "nsis-mode")
 (depends-on "org")
