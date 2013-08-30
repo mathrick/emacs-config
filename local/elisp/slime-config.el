@@ -10,10 +10,19 @@
 (eval-after-load "slime-helper"
   (lambda ()
     (require 'slime)
+
     (slime-setup '(slime-fancy slime-indentation slime-asdf 
                                slime-mrepl slime-media ;; slime-mdot-fu
                                ))
+
     (add-hook 'lisp-mode-hook 'slime-mode)
     (add-hook 'slime-mode-hook 'turn-on-redshank-mode)
     (add-hook 'slime-repl-mode-hook (lambda () (local-unset-key (kbd "RET")))) 
-    (add-hook 'slime-xref-mode-hook (lambda () (local-unset-key (kbd "RET"))))))
+    (add-hook 'slime-xref-mode-hook (lambda () (local-unset-key (kbd "RET"))))
+
+    (setq slime-net-coding-system 'utf-8)
+    (pushnew '(utf-8 t "utf-8") slime-net-valid-coding-systems :key #'car)
+
+    (setq slime-lisp-implementations
+      '((sbcl-clean ("sbcl"))))
+    (setq slime-default-lisp 'sbcl-clean)))
