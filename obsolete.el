@@ -1,8 +1,10 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;;; This file is a dump of everything from my old user.el that I  ;;; 
-;;; haven't properly migrated to the new and shiny, real Grail    ;;; 
-;;; structure yet. It's not loaded, and will eventually disappear ;;; 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; This file contains obsolete bits of my old config. I haven't moved ;;;
+;;; them over because I don't need them right now, but I don't want to ;;;
+;;; kill it outright since there's a reasonable chance I will need to  ;;;
+;;; solve these problems in the future and don't want to research it   ;;;
+;;; from scratch                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar lisp-symbol-segment
   "\\([^-]*\\)\\(-\\|$\\)"
