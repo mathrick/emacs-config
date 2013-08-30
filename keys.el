@@ -21,8 +21,7 @@
 (key-chord-define-global ";'" 'iy-go-to-char-backward)
 (global-set-key (kbd "C-x C-;") 'iy-go-to-char-continue)
 (global-set-key (kbd "C-x C-,") 'iy-go-to-char-continue-backward)
-;; Does not actually work, github issue pending
-(eval-after-load 'iy-go-to-char (lambda () (define-key iy-go-to-char-keymap (kbd "RET") 'iy-go-to-char-done)))
+(eval-after-load "iy-go-to-char" '(define-key iy-go-to-char-keymap (kbd "<return>") 'iy-go-to-char-done))
 
 (global-set-key (kbd "C-c C-t") 'wrap-region-with-text)
 
