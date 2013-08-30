@@ -16,6 +16,7 @@
 (depends-on "multiple-cursors")
 (depends-on "nsis-mode")
 (depends-on "org")
+(depends-on "org-bullets")
 (depends-on "pallet")
 (depends-on "paredit")
 (depends-on "paredit-everywhere")

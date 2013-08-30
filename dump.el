@@ -104,24 +104,6 @@
 
 (ad-activate 'lisp-complete-symbol)
 
-;;; Vim
-
-;; (setq viper-mode t)                ; enable Viper at load time
-;; (setq viper-ex-style-editing nil)  ; can backspace past start of insert / line
-;; (setq viper-want-ctl-h-help t)     ; C-h is help, not vi motion
-;; (require 'redo)
-;; (require 'rect-mark)
-;; (require 'viper)                   ; load Viper
-;; (require 'vimpulse)                ; load Vimpulse
-;; ;; Make sure that C-[ is the same as ESC
-;; (global-set-key "\C-z" 'toggle-viper-mode)
-;; (define-key viper-insert-global-user-map (kbd "\C-[") 'viper-intercept-ESC-key)
-(setq woman-use-own-frame nil)     ; don't create new frame for manpages
-(setq woman-use-topic-at-point t)  ; don't prompt upon K key (manpage display)
-
-;; Load CUA after viper, otherwise visual mode breaks
-(cua-mode t)
-
 ;; Spellchecking
 (require 'rw-language-and-country-codes)
 (require 'rw-ispell)
@@ -139,83 +121,3 @@
         ("british" ; British English
          "[A-Za-z]" "[^A-Za-z]" "[']" t
          ("-d" "en_GB" "-i" "utf-8") nil utf-8)))))
-
-;; Emacs-chrome
-(load-file "~/elisp/dist/emacs_chrome/servers/edit-server.el")
-(progn
-  (require 'edit-server)
-  (edit-server-start)
-  (defadvice edit-server-done (around dont-kill-edit-buffer-on-save activate)
-    (setf nokill t)
-    ad-do-it))
-
-;; DVC
-(load-file "/home/mathrick/elisp/dist/dvc/dvc-load.el")
-(dvc-show-active-dvc 1)
-
-;; bookmarklets
-(fset 'bookmarklet-minify-macro
-   [?\C-x ?b ?u ?p ?l ?o ?a ?d ?_ ?b ?o ?o ?k ?m ?a ?r ?k ?l ?e ?t ?. ?j ?s ?\C-m ?\C-x ?h C-insert ?\C-x ?b ?a ?s ?d ?\C-m ?\C-x ?h S-insert C-home ?\C-x ?R ?R ?\C-q ?\C-j ?\C-m ?\C-m C-home ?\C-x ?R ?R ?  ?+ ?\C-m ?  ?\C-m C-home ?\C-x ?R ?R ?  ?? ?\\ ?\( ?\[ ?+ ?= ?\{ ?\} ?\( ?\) ?\; ?, ?. ?% ?/ ?^ ?- ?\] ?\\ ?\) ?  ?? ?\C-m ?\\ ?1 ?\C-m C-home ?\C-x ?R ?R ?  ?\C-m ?% ?2 ?0 ?\C-m C-home ?j ?a ?v ?a ?s ?c ?r ?i ?p ?t ?: ?\C-x ?h C-insert ?\M-: ?\( ?x ?- ?s ?e ?t ?- ?s ?e ?l ?e ?c ?t ?i ?o ?n ?\' ?C ?L ?I ?P ?B ?O ?A ?R ?D ?\( ?c ?u ?r ?r ?e ?n ?t ?- ?k ?i ?l ?l ?  ?0 ?  ?t ?\) ?\) ?\C-m ?\C-x ?b ?u ?p ?l ?o ?a ?d ?_ ?b ?o ?o ?k ?m ?a ?r ?k ?l ?e ?t ?. ?j ?s ?\C-m ?\C-u ?\C-  ?\C-u ?\C- ])
-
-(defun bookmarklet-minify ()
-  (interactive)
-  (command-execute 'bookmarklet-minify-macro)
-  (message "Remember it might have messed up SPCs in string literals"))
-
-(defun toggle-split-view (left right)
-  (let ((root (car (window-tree))))
-    (if (listp root)
-        (progn
-          (delete-other-windows)
-          (switch-to-buffer left))
-      (progn
-        (split-window-horizontally)
-        (switch-to-buffer left)
-        (other-window 1)
-        (switch-to-buffer right)
-        (other-window 1)))))
-
-(load custom-file)
-
-(eval-after-load 'company '(global-company-mode))
-
-(defvar *company-wanted-modes*
-  (list
-   'c-mode 'c++-mode 'c-mode 'java-mode
-   'php-mode 'python-mode 
-   'lisp-mode 'emacs-lisp-mode 'inferior-emacs-lisp-mode
-   'lisp-interaction-mode
-   'shell-script-mode
-   'css-mode 'javascript-mode 'html-mode
-   'text-mode))
-
-(defun company-mode-if-possible ()
-  (when (and (not (window-minibuffer-p))
-             (find major-mode
-                   *company-wanted-modes*))
-    (company-mode)))
-
-;; (define-globalized-minor-mode global-company-mode
-;;   company-mode company-mode-if-possible)
-
-
-;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
-(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
-(autoload 'gradle-mode "gradle-mode" "Gradle task integration." t)
-;; For some reason, these recommendations don't seem to work with Aquamacs
-(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
-(add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
-;; This does work with Aquamacs
-(add-to-list 'auto-mode-alist (cons "\\.gradle\\'" 'groovy-mode))
-(add-to-list 'auto-mode-alist (cons "\\.groovy\\'" 'groovy-mode))
-;; This _might_ not work with Aquamacs (not sure what value it offers)
-(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
-(add-to-list 'interpreter-mode-alist '("gradle" . groovy-mode))
-;;; make Groovy mode electric by default.
-(add-hook 'groovy-mode-hook
-          '(lambda ()
-             (require 'groovy-electric)
-             (groovy-electric-mode)))
-
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))

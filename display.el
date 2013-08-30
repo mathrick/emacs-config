@@ -98,9 +98,7 @@
 
 (global-ede-mode 1)
 
-;; (setq eclim-auto-save t)
-;; (global-eclim-mode)
-
+;; Org mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (setq org-log-done t)
 
@@ -111,6 +109,9 @@
 
 (put 'org-beginning-of-line 'CUA 'move)
 (put 'org-end-of-line 'CUA 'move)
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Paredit
 (require 'paredit-menu)
