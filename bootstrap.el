@@ -5,7 +5,8 @@
 ;; See README on how to use
 
 (defun bootstrap-melpa ()
-  (grail-install-elpa)
+  (unless (require 'package nil t)
+   (grail-install-elpa))
   (save-excursion
     (switch-to-buffer (url-retrieve-synchronously
 		       "https://raw.github.com/milkypostman/melpa/master/melpa.el"))
