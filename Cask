@@ -24,3 +24,4 @@
 (depends-on "redshank")
 (depends-on "wgrep")
 (depends-on "yasnippet")
+(depends-on "zenburn-theme")
