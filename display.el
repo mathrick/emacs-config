@@ -8,6 +8,16 @@
 ;; don't truncate in vertically split windows
 (setq truncate-partial-width-windows nil)
 
+;; Theme
+
+(add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F"))
+
+(zenburn-with-color-variables
+  (custom-theme-set-faces
+   'zenburn
+   `(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
+   `(hl-line ((t (:background ,zenburn-green-2))))))
+
 (add-hook 'c-mode-common-hook 'auto-fill-mode)
 (add-hook 'c-mode-common-hook 'glasses-mode)
 
