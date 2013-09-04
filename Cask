@@ -10,6 +10,7 @@
 (depends-on "highlight-parentheses")
 (depends-on "iy-go-to-char")
 (depends-on "key-chord")
+(depends-on "lively")
 (depends-on "melpa")
 (depends-on "mic-paren")
 (depends-on "minimap")
