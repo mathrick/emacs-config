@@ -7,11 +7,11 @@
 (define-key key-translation-map (kbd "s-<tab>") (kbd "M-TAB"))
 
 ;; List and sexp navigation
-(global-set-key (kbd "C-M-<right>") 'forward-list)
-(global-set-key (kbd "C-M-<left>")  'backward-list)
+(global-set-key (kbd "C-M-<right>") 'forward-sexp)
+(global-set-key (kbd "C-M-<left>")  'backward-sexp)
 (global-set-key (kbd "M-n")         'up-list)
-(global-set-key (kbd "C-s-<right>") 'forward-sexp)
-(global-set-key (kbd "C-s-<left>")  'backward-sexp)
+(global-set-key (kbd "M-s-<right>") 'forward-list)
+(global-set-key (kbd "M-s-<left>")  'backward-list)
 
 ;; Misc
 (global-set-key (kbd "C-c k")   'browse-kill-ring)
@@ -20,10 +20,10 @@
 (global-set-key (kbd "C-h a")   'apropos)
 
 ;; Text manip and navigation
-(key-chord-define-global "l;" 'iy-go-to-char)
-(key-chord-define-global ";'" 'iy-go-to-char-backward)
-(global-set-key (kbd "C-x C-;") 'iy-go-to-char-continue)
-(global-set-key (kbd "C-x C-,") 'iy-go-to-char-continue-backward)
+(key-chord-define-global "l;" 'iy-go-up-to-char)
+(key-chord-define-global ";'" 'iy-go-up-to-char-backward)
+(global-set-key (kbd "C-x C-;") 'iy-go-up-to-char-continue)
+(global-set-key (kbd "C-x C-,") 'iy-go-up-to-char-continue-backward)
 (eval-after-load "iy-go-to-char" '(define-key iy-go-to-char-keymap (kbd "<return>") 'iy-go-to-char-done))
 
 (global-set-key (kbd "C-c C-t") 'wrap-region-with-text)
