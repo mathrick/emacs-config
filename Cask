@@ -23,6 +23,7 @@
 (depends-on "paredit-everywhere")
 (depends-on "paredit-menu")
 (depends-on "redshank")
+(depends-on "undo-tree")
 (depends-on "wgrep")
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
