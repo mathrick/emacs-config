@@ -47,6 +47,10 @@
 
 (global-set-key (kbd "C-?") 'er/expand-region)
 (global-set-key (kbd "M-?") 'er/contract-region)
+;; Undo-tree breaks our -?'s, let's undo it
+(eval-after-load 'undo-tree '(progn
+                               (define-key undo-tree-map (kbd "C-?") nil)
+                               (define-key undo-tree-map (kbd "M-?") nil)))
 
 ;; Dired
 (local-hook-key 'dired-mode-hook "r" 'wdired-change-to-wdired-mode)
