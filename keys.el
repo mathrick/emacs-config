@@ -45,6 +45,9 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "M->") 'mc/mark-all-dwim)
 
+;; I hate RET cancelling MC, I have C-g for that
+(eval-after-load 'multiple-cursors-core '(define-key mc/keymap (kbd "<return>") nil))
+
 (global-set-key (kbd "C-?") 'er/expand-region)
 (global-set-key (kbd "M-?") 'er/contract-region)
 ;; Undo-tree breaks our -?'s, let's undo it
