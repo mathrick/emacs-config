@@ -22,6 +22,8 @@
 (depends-on "paredit")
 (depends-on "paredit-everywhere")
 (depends-on "paredit-menu")
+(depends-on "popwin")
+(depends-on "pos-tip")
 (depends-on "redshank")
 (depends-on "undo-tree")
 (depends-on "wgrep")
