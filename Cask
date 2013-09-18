@@ -3,6 +3,7 @@
 (source "marmalade" "http://marmalade-repo.org/packages/")
 
 (depends-on "cask")
+(depends-on "diff-hl")
 (depends-on "dtrt-indent")
 (depends-on "ecb")
 (depends-on "emmet-mode")
