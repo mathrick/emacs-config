@@ -2,6 +2,7 @@
 
 (mouse-wheel-mode t)
 (column-number-mode t)
+(global-undo-tree-mode 1)
 ;; no bell please
 (setq ring-bell-function (lambda ()))
 
