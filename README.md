@@ -26,22 +26,46 @@ Bootstrap a fresh Emacs install
 --------------------------------------
 
 First of all, checkout this repo. Below I'll assume the checkout will
-live under `~/elisp/`. And so does the `grail.el` (for now), so if you
-place it elsewhere, you will have to adjust `grail-elisp-root` in it.
+live under `~/elisp/`. If you put your checkout somewhere else, adjust
+the paths correspondingly.
 
-Next, make a `.emacs` file. It can be either a symlink (on Unix) to `grail.el`:
+### Unix installation
+1. Make a `~/.emacs` file. It should be a symlink (on Unix) to `grail.el`:
 
-    $ ln -s ~/elisp/grail.el ~/.emacs
+        $ ln -s ~/elisp/grail.el ~/.emacs
+2. Bootstrap the package-management packages:
 
-**OR** a file with the following contents (on Windows):
+        $ emacs -l ~/elisp/bootstrap.el
 
-    (load-file "~/elisp/grail.el")
+### Windows installation
+1. Set up your HOME, as the default location is rather silly. Right
+   click on *Computer* → *Properties* → *Advanced system settings* (Win7/Vista)
+   or *Advanced* tab (XP) → *Environment variables*
 
-This sets up Grail and tells Emacs where to find all the rest.
+   Click on `New...` user variable. Call it `HOME`, and give it the
+   value of `%USERPROFILE%`. This will make it point to your user
+   folder, which you can access for example by navigating to Desktop
+   in the file explorer, then clicking the arrow in the address bar
+   and selecting your user folder from the dropdown list.
 
-Then, bootstrap the package-management packages:
+   Below `~/` refers to the home directory you've just set up.
 
-    $ emacs -l ~/elisp/bootstrap.el
+2. On Windows Emacs is unable to communicate with HTTPS hosts, so you
+   will need to download an extra file. Go to
+   https://raw.github.com/milkypostman/melpa/master/melpa.el
+   and save it under `~/elisp/`.
+
+3. Make a `~/.emacs` file:
+    1. Launch Emacs, `C-x C-f ~/.emacs RET`
+    2. Insert the following contents
+     (load-file "~/elisp/grail.el")
+    3. `C-x C-s`, close Emacs
+
+4. Launch the bootstrap:
+    1. `C-x C-f ~/elisp/bootstrap.el RET`
+    2. `M-x eval-buffer RET`
+   
+### Unix & Windows
 
 That's it! Now you just wait. This will make sure ELPA & MELPA are
 initialised, and will fetch Pallet & Cask to do the rest of dependency
