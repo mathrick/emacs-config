@@ -25,6 +25,7 @@
 (depends-on "paredit")
 (depends-on "paredit-everywhere")
 (depends-on "paredit-menu")
+(depends-on "php-mode")
 (depends-on "popwin")
 (depends-on "pos-tip")
 (depends-on "redshank")
