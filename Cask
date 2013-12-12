@@ -3,11 +3,13 @@
 (source "marmalade" "http://marmalade-repo.org/packages/")
 
 (depends-on "cask")
+(depends-on "dash")
 (depends-on "diff-hl")
 (depends-on "dtrt-indent")
 (depends-on "ecb")
 (depends-on "emmet-mode")
 (depends-on "expand-region")
+(depends-on "f")
 (depends-on "highlight-parentheses")
 (depends-on "iy-go-to-char")
 (depends-on "key-chord")
