@@ -343,10 +343,6 @@
              (if (file-accessible-directory-p grail-local-emacs)
                (list grail-local-emacs))
 
-             ;; prefer the load-path as it existed after loading
-             ;; the platform files over the Emacs boot load-path.
-             (or grail-platform-load-path grail-boot-load-path)
-
              (if (file-accessible-directory-p grail-local-elisp)
                (cons grail-local-elisp
                  (filter-ls grail-local-elisp t
@@ -386,8 +382,15 @@
                  (filter-ls grail-dist-elisp t
                    (type ?d)
                    (!name filter-dot-dirs))))
-              ))
 
+             ;; System-wide load path last, or else it's impossible
+             ;; ever to override built-in packages with ELPA.
+             ;; Prefer the load-path as it existed after loading
+             ;; the platform files over the Emacs boot load-path.
+             (or grail-platform-load-path grail-boot-load-path)
+             ))
+
+         
          ;; if there is an error, trap and re-throw the error
          (error
            (error "grail-extend-load-path magic failed: %s. grail-fn.el has likely been humbled by recursion stack growth."
