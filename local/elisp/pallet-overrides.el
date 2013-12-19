@@ -4,6 +4,8 @@
   "Location of the Cask file."
   (expand-file-name "Cask" grail-elisp-root))
 
+(defalias 'pallet--cask-file 'pt/cask-file)
+
 ;; We cannot just call (cask-initialize), since it assumes ~/.emacs.d,
 ;; and similarly we have to fix up pt/cask-up since it calls that
 (defun pt/cask-up (&optional body)
@@ -16,3 +18,4 @@
 	(when body (funcall body)))
     (message "No Cask file found. Run `pallet-init' to create one.")))
 
+(defalias 'pallet--cask-up 'pt/cask-up)
