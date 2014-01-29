@@ -316,7 +316,6 @@ The document was typeset with
  '(semantic-default-submodes (quote (global-semantic-decoration-mode global-semantic-stickyfunc-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode)))
  '(semanticdb-global-mode t nil (semantic/db))
  '(server-done-hook (quote ((lambda nil (delete-frame)))))
- '(server-window (lambda (buf) (let ((pop-up-frames t)) (display-buffer buf))))
  '(show-paren-mode t)
  '(show-paren-style (quote mixed))
  '(skk-henkan-show-candidates-keys (quote (48 49 50 51 52 53 54 55 56 57 \.\.\.)))
