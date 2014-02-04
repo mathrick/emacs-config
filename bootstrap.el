@@ -11,10 +11,8 @@
     (unless (require 'package nil t)
       (grail-install-elpa))
     (save-excursion
-      (switch-to-buffer (loop for file in '("melpa.el"
-                                             "melpa.el.txt"
-                                             "package-filter.el"
-                                             "package-filter.el.txt")
+      (switch-to-buffer (loop for file in '("package-filter.el"
+                                            "package-filter.el.txt")
                               if (file-exists-p (expand-file-name file my-dir))
                               return (find-file melpa-path)
                               finally return

@@ -52,7 +52,7 @@ the paths correspondingly.
 
 2. On Windows Emacs is unable to communicate with HTTPS hosts, so you
    will need to download an extra file. Go to
-   https://raw.github.com/milkypostman/melpa/master/melpa.el
+   https://raw.github.com/milkypostman/package-filter/master/package-filter.el
    and save it under `~/elisp/`.
 
 3. Make a `~/.emacs` file:

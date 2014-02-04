@@ -14,7 +14,7 @@
 (depends-on "iy-go-to-char")
 (depends-on "key-chord")
 (depends-on "lively")
-(depends-on "melpa")
+(depends-on "package-filter")
 (depends-on "mic-paren")
 (depends-on "minimap")
 (depends-on "multiple-cursors")
