@@ -7,15 +7,19 @@
 (defun bootstrap-melpa ()
   (let* ((my-path (or load-file-name
 		      (buffer-file-name)))
-	 (melpa-path (expand-file-name "melpa.el" (file-name-directory my-path))))
+         (my-dir (file-name-directory my-path)))
     (unless (require 'package nil t)
       (grail-install-elpa))
     (save-excursion
-      (switch-to-buffer (if (or (file-exists-p melpa-path)
-				(file-exists-p (setf melpa-path (concat melpa-path ".txt"))))
-			    (find-file melpa-path)
-			  (url-retrieve-synchronously
-			   "https://raw.github.com/milkypostman/melpa/master/melpa.el")))
+      (switch-to-buffer (loop for file in '("melpa.el"
+                                             "melpa.el.txt"
+                                             "package-filter.el"
+                                             "package-filter.el.txt")
+                              if (file-exists-p (expand-file-name file my-dir))
+                              return (find-file melpa-path)
+                              finally return
+                              (url-retrieve-synchronously
+                               "https://raw.github.com/milkypostman/package-filter/master/package-filter.el")))
       (package-install-from-buffer (package-buffer-info) 'single)
       (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
       (when (< emacs-major-version 24)
