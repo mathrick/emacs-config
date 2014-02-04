@@ -89,9 +89,9 @@ So you mentioned stealing it for myself. How do I do that?
 ----------------------------------------------------------
 
 Right now, it's not absolutely 100% ready, and needs some minor fixes
-that are important for wider consumption (namely, not assuming
-`~/elisp`). Also, the hacky overrides I had to apply to Pallet and
-Casket need to be pushed upstream and integrated properly.
+that are important for wider consumption. Also, the hacky overrides I
+had to apply to Pallet and Casket need to be pushed upstream and
+integrated properly.
 
 However, the main parts that you need are as follows:
 
@@ -122,16 +122,13 @@ page](http://www.emacswiki.org/emacs/Grail).
 Known issues
 ------------
 
-1. Grail copy assumes `~/elisp`. It should just derive the root from
-   where it's being loaded from
-
-2. Headless init (ie. `emacs --daemon`) breaks. I don't know if it's
+1. Headless init (ie. `emacs --daemon`) breaks. I don't know if it's
    my fault or Grail's, and it will be a royal pain to debug
-
-3. Grail needs a few more fixes and cleanups, and pushing upstream
-
-4. Pallet and Cask assume `~/.emacs.d`, and need messy overrides. They
-   should allow explicit overrides
+ 
+2. Grail needs a few more fixes and cleanups, and pushing upstream
+ 
+3. Pallet and Cask assume `~/.emacs.d`, and need messy overrides.
+   They should allow explicit overrides
 
 Licence
 =======
