@@ -107,3 +107,6 @@
 
 ;; Mode-specific info lookup (for ANSI CL in Info format)
 (global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
+
+;;; OmniSharp
+(local-hook-key 'csharp-mode-hook (kbd ".") 'omnisharp-add-dot-and-auto-complete)

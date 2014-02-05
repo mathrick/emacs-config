@@ -171,3 +171,7 @@
 
 (require 'yasnippet)
 (add-to-list 'yas/root-directory (expand-file-name "local/snippets" grail-elisp-root))
+
+;;; OmniSharp
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(add-hook 'csharp-mode-hook 'eldoc-mode)
