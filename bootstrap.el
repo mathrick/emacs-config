@@ -13,8 +13,9 @@
     (save-excursion
       (switch-to-buffer (loop for file in '("package-filter.el"
                                             "package-filter.el.txt")
-                              if (file-exists-p (expand-file-name file my-dir))
-                              return (find-file melpa-path)
+                              for path = (expand-file-name file my-dir)
+                              if (file-exists-p path)
+                              return (find-file path)
                               finally return
                               (url-retrieve-synchronously
                                "https://raw.github.com/milkypostman/package-filter/master/package-filter.el")))
