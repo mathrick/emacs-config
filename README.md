@@ -100,7 +100,7 @@ However, the main parts that you need are as follows:
 
 2. `Cask`
    This is where packages needed by the code are recorded. You can
-   safely remove all but `melpa`, `cask` and `pallet`. After
+   safely remove all but `package-filter`, `cask` and `pallet`. After
    bootstrap, Pallet will take care of recording all activity, so just
    use the usual `M-x list-package` and `M-x package-install`, `M-x
    package-delete`
