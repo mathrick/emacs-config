@@ -116,9 +116,22 @@
       (if (getenv "USER_ELISP")
           (expand-file-name (concat (getenv "USER_ELISP") "/"))
         (let* ((file load-file-name)
-               (symlink (file-symlink-p file)))
-          (file-name-directory (or symlink file))))
+               (symlink (file-symlink-p file))
+               (mydir (file-name-directory (or symlink file))))
+          (cond
+           ((or (file-exists-p (expand-file-name "user.el" mydir))
+                (file-exists-p (expand-file-name "config/" mydir)))
+            mydir)
+           ((file-exists-p (expand-file-name "../grail/" mydir))
+            (expand-file-name "../" mydir))
+           (t (error "Grail.el must be located in the same directory as user.el or config/, or in a subdirectory grail/")))))
       "The root of the user's elisp tree")
+
+    (defvar grail-grail-root
+      (let* ((file load-file-name)
+               (symlink (file-symlink-p file)))
+          (file-name-directory (or symlink file)))
+      "Where grail's own files live. Might be the same as elisp root, or under grail/")
 
     ;; abort the rest of grail if the USER_ELISP tree cannot be found.
     (unless (file-accessible-directory-p grail-elisp-root)
@@ -130,7 +143,7 @@
     ;; load the 2cnd stage of grail with the more complex functions.
     ;;----------------------------------------------------------------------
     (let*
-      ((stage-2-path (concat grail-elisp-root "grail-fn"))
+      ((stage-2-path (concat grail-grail-root "grail-fn"))
        (stage-2-errors (diagnostic-load-elisp-file stage-2-path)))
 
       (when stage-2-errors
@@ -204,7 +217,7 @@
       "Loading the grail-cfg file for user path changes."
       ;; grail-cfg.el is a file for user to change the tree structure that grail
       ;; traverses before load-path is formed.
-      (load-user-elisp "grail-cfg"))
+      (load-grail-elisp "grail-cfg"))
 
     ;;----------------------------------------------------------------------
     ;; Host specific adaptation
@@ -240,7 +253,7 @@
     (defvar grail-local-profiles
       (when (grail-trap
 	     "loading grail profiles support"
-	     (load-user-elisp "grail-profile"))
+	     (load-grail-elisp "grail-profile"))
 	(concat grail-local-dir "profiles/"))
       "The directory containing Grail profiles modules.")
 

@@ -224,6 +224,12 @@
   (when file
     (load-elisp-if-exists (concat grail-elisp-root file))))
 
+(defun load-grail-elisp ( file )
+  "Like load-user-elisp, but for grail's own files, which might
+  live in a subdirectory."
+  (when file
+    (load-elisp-if-exists (concat grail-grail-root file))))
+
 ;;
 ;; display/gui loading
 ;;

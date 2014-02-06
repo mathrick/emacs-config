@@ -32,7 +32,7 @@ the paths correspondingly.
 ### Unix installation
 1. Make a `~/.emacs` file. It should be a symlink (on Unix) to `grail.el`:
 
-        $ ln -s ~/elisp/grail.el ~/.emacs
+        $ ln -s ~/elisp/grail/grail.el ~/.emacs
 2. Bootstrap the package-management packages:
 
         $ emacs -l ~/elisp/bootstrap.el
@@ -58,7 +58,7 @@ the paths correspondingly.
 3. Make a `~/.emacs` file:
     1. Launch Emacs, `C-x C-f ~/.emacs RET`
     2. Insert the following contents
-     (load-file "~/elisp/grail.el")
+     (load-file "~/elisp/grail/grail.el")
     3. `C-x C-s`, close Emacs
 
 4. Launch the bootstrap:
