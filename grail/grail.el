@@ -120,11 +120,11 @@
                (mydir (file-name-directory (or symlink file))))
           (cond
            ((or (file-exists-p (expand-file-name "user.el" mydir))
-                (file-exists-p (expand-file-name "config/" mydir)))
+                (file-exists-p (expand-file-name "user/" mydir)))
             mydir)
            ((file-exists-p (expand-file-name "../grail/" mydir))
             (expand-file-name "../" mydir))
-           (t (error "Grail.el must be located in the same directory as user.el or config/, or in a subdirectory grail/")))))
+           (t (error "Grail.el must be located in the same directory as user.el or user/, or in a subdirectory grail/")))))
       "The root of the user's elisp tree")
 
     (defvar grail-grail-root
@@ -152,6 +152,13 @@
     ;; define the directory structure of the configuration tree
     ;; relative to USER_ELISP
 
+    (defvar grail-local-config-dir
+      (if (file-exists-p (expand-file-name "user.el" grail-elisp-root))
+          grail-elisp-root
+        (expand-file-name "user/" grail-elisp-root))
+      "The directory containing the user's config elisp to be loaded by grail.
+That is, user.el, keys.el, etc. live here, but not dist/ or local/")
+    
     (defvar grail-local-dir
       (concat grail-elisp-root "local/")
       "The directory containing the user's local modifications to emacs

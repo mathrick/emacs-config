@@ -222,7 +222,7 @@
    errors, nil otherwise.
   "
   (when file
-    (load-elisp-if-exists (concat grail-elisp-root file))))
+    (load-elisp-if-exists (concat grail-local-config-dir file))))
 
 (defun load-grail-elisp ( file )
   "Like load-user-elisp, but for grail's own files, which might
