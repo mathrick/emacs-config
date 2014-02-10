@@ -22,6 +22,7 @@
 (depends-on "omnisharp")
 (depends-on "org")
 (depends-on "org-bullets")
+(depends-on "org-jira")
 (depends-on "package-filter")
 (depends-on "pallet")
 (depends-on "paredit")
