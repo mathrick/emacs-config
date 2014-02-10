@@ -31,6 +31,9 @@
                               (block-open          . 0)
                               (knr-argdecl-intro   . -)))))
 (c-add-style "Corrected GNU" my-c-style nil)
+(setq c-default-style '((java-mode . "java")
+                        (csharp-mode . "c#")
+                        (other . "Corrected gnu")))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
