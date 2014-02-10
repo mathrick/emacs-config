@@ -151,13 +151,33 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (setq org-log-done t)
 
-(setq org-CUA-compatible t)
-(setq org-replace-disputed-keys t)
-(define-key global-map (kbd "C-c l") 'org-store-link)
-(define-key global-map (kbd "C-c a") 'org-agenda)
+(setq org-modules '(org-bbdb
+                    org-bibtex
+                    org-docview
+                    org-gnus
+                    org-info
+                    org-jsinfo
+                    org-irc
+                    org-mew
+                    org-mhe
+                    org-rmail
+                    org-special-blocks
+                    org-vm
+                    org-wl
+                    org-w3m))
+
+(setq org-todo-keywords '((sequence "TODO" "DONE")
+                          (sequence "BUG" "WISHLIST" "|" "FIXED" "WONTFIX" "NOTABUG")
+                          (sequence "PENDING" "REPEAT" "|" "FAILED" "SUCCESS")))
 
 (put 'org-beginning-of-line 'CUA 'move)
 (put 'org-end-of-line 'CUA 'move)
+
+(setq org-bullets-bullet-list '("✸" "✿" "◉" "○"))
+
+(setq org-hide-leading-stars t)
+(setq org-odd-levels-only t)
+(setq org-pretty-entities t)
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))

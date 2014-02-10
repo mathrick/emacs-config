@@ -108,6 +108,26 @@
 ;; Mode-specific info lookup (for ANSI CL in Info format)
 (global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
 
+;;; Org Mode
+(define-key global-map (kbd "C-c l") 'org-store-link)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+
+(setq org-cycle-emulate-tab 'whitestart)
+
+(setq org-CUA-compatible t)
+(setq org-replace-disputed-keys t)
+(setq org-disputed-keys '(([(shift up)] . [(meta p)])
+                          ([(shift down)] . [(meta n)])
+                          ([(shift left)] . [(meta -)])
+                          ([(shift right)] . [(meta +)])
+                          ([(meta left)] . [(super left)])
+                          ([(meta right)] . [(super right)])
+                          ([(meta up)] . [(super up)])
+                          ([(meta down)] . [(super down)])
+                          ([(control shift right)] . [(meta shift +)])
+                          ([(control shift left)] . [(meta shift -)])))
+
+
 ;;; OmniSharp
 (local-hook-key 'csharp-mode-hook (kbd ".") 'omnisharp-add-dot-and-auto-complete)
 (local-hook-key 'csharp-mode-hook (kbd "C-c TAB") 'omnisharp-auto-complete)
