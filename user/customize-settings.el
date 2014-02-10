@@ -8,164 +8,13 @@
  '(TeX-PDF-mode t)
  '(TeX-output-view-style (quote (("^dvi$" ("^landscape$" "^pstricks$\\|^pst-\\|^psfrag$") "%(o?)dvips -t landscape %d -o && gv %f") ("^dvi$" "^pstricks$\\|^pst-\\|^psfrag$" "%(o?)dvips %d -o && gv %f") ("^dvi$" ("^a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4$" "^landscape$") "%(o?)xdvi %dS -paper a4r -s 0 %d") ("^dvi$" "^a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4$" "%(o?)xdvi %dS -paper a4 %d") ("^dvi$" ("^a5\\(?:comb\\|paper\\)$" "^landscape$") "%(o?)xdvi %dS -paper a5r -s 0 %d") ("^dvi$" "^a5\\(?:comb\\|paper\\)$" "%(o?)xdvi %dS -paper a5 %d") ("^dvi$" "^b5paper$" "%(o?)xdvi %dS -paper b5 %d") ("^dvi$" "^letterpaper$" "%(o?)xdvi %dS -paper us %d") ("^dvi$" "^legalpaper$" "%(o?)xdvi %dS -paper legal %d") ("^dvi$" "^executivepaper$" "%(o?)xdvi %dS -paper 7.25x10.5in %d") ("^dvi$" "." "%(o?)xdvi %dS %d") ("^pdf$" "." "evince %o") ("^html?$" "." "netscape %o"))))
  '(auto-compression-mode t nil (jka-compr))
- '(auto-insert t)
- '(auto-insert-alist (quote ((("\\.\\([Hh]\\|hh\\|hpp\\)\\'" . "C / C++ header") (upcase (concat (file-name-nondirectory (substring buffer-file-name 0 (match-beginning 0))) "_" (substring buffer-file-name (1+ (match-beginning 0))))) "#ifndef " str "
-#define " str "
-
-" _ "
-
-#endif") (("\\.\\([Cc]\\|cc\\|cpp\\)\\'" . "C / C++ program") nil "#include \"" (let ((stem (file-name-sans-extension buffer-file-name))) (cond ((file-exists-p (concat stem ".h")) (file-name-nondirectory (concat stem ".h"))) ((file-exists-p (concat stem ".hh")) (file-name-nondirectory (concat stem ".hh"))))) & 34 | -10) (("[Mm]akefile\\'" . "Makefile") . "makefile.inc") (html-mode lambda nil (sgml-tag "html")) (plain-tex-mode . "tex-insert.tex") (bibtex-mode . "tex-insert.tex") (latex-mode "options, RET: " "\\documentclass[" str & 93 | -1 123 (read-string "class: ") "}
-" ("package, %s: " "\\usepackage[" (read-string "options, RET: ") & 93 | -1 123 str "}
-") _ "
-\\begin{document}
-" _ "
-\\end{document}") (("/bin/.*[^/]\\'" . "Shell-Script mode magic number") lambda nil (if (eq major-mode default-major-mode) (sh-mode))) (ada-mode . ada-header) (("\\.[1-9]\\'" . "Man page skeleton") "Short description: " ".\\\" Copyright (C), " (substring (current-time-string) -4) "  " (getenv "ORGANIZATION") | (progn user-full-name) "
-.\\\" You may distribute this file under the terms of the GNU Free
-.\\\" Documentation License.
-.TH " (file-name-sans-extension (file-name-nondirectory (buffer-file-name))) " " (file-name-extension (buffer-file-name)) " " (format-time-string "%Y-%m-%d ") "
-.SH NAME
-" (file-name-sans-extension (file-name-nondirectory (buffer-file-name))) " \\- " str "
-.SH SYNOPSIS
-.B " (file-name-sans-extension (file-name-nondirectory (buffer-file-name))) "
-" _ "
-.SH DESCRIPTION
-.SH OPTIONS
-.SH FILES
-.SH \"SEE ALSO\"
-.SH BUGS
-.SH AUTHOR
-" (user-full-name) (quote (if (search-backward "&" (line-beginning-position) t) (replace-match (capitalize (user-login-name)) t t))) (quote (end-of-line 1)) " <" (progn user-mail-address) ">
-") (("\\.el\\'" . "Emacs Lisp header") "Short description: " ";;; " (file-name-nondirectory (buffer-file-name)) " --- " str "
-
-;; Copyright (C) " (substring (current-time-string) -4) "  " (getenv "ORGANIZATION") | (progn user-full-name) "
-
-;; Author: " (user-full-name) (quote (if (search-backward "&" (line-beginning-position) t) (replace-match (capitalize (user-login-name)) t t))) (quote (end-of-line 1)) " <" (progn user-mail-address) ">
-;; Keywords: " (quote (require (quote finder))) (quote (setq v1 (mapcar (lambda (x) (list (symbol-name (car x)))) finder-known-keywords) v2 (mapconcat (lambda (x) (format "%12s:  %s" (car x) (cdr x))) finder-known-keywords "
-"))) ((let ((minibuffer-help-form v2)) (completing-read "Keyword, C-h: " v1 nil t)) str ", ") & -2 "
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, version 2.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;; " _ "
-
-;;; Code:
-
-
-
-(provide '" (file-name-sans-extension (file-name-nondirectory (buffer-file-name))) ")
-;;; " (file-name-nondirectory (buffer-file-name)) " ends here
-") (("\\.texi\\(nfo\\)?\\'" . "Texinfo file skeleton") "Title: " "\\input texinfo   @c -*-texinfo-*-
-@c %**start of header
-@setfilename " (file-name-sans-extension (file-name-nondirectory (buffer-file-name))) ".info
-" "@settitle " str "
-@c %**end of header
-@copying
-" (setq short-description (read-string "Short description: ")) ".
-
-" "Copyright @copyright{} " (substring (current-time-string) -4) "  " (getenv "ORGANIZATION") | (progn user-full-name) "
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2
-or any later version published by the Free Software Foundation;
-with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
-Texts.  A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-
-A copy of the license is also available from the Free Software
-Foundation Web site at @url{http://www.gnu.org/licenses/fdl.html}.
-
-@end quotation
-
-The document was typeset with
-@uref{http://www.texinfo.org/, GNU Texinfo}.
-
-@end copying
-
-@titlepage
-@title " str "
-@subtitle " short-description "
-@author " (getenv "ORGANIZATION") | (progn user-full-name) " <" (progn user-mail-address) ">
-@page
-@vskip 0pt plus 1filll
-@insertcopying
-@end titlepage
-
-@c Output the table of the contents at the beginning.
-@contents
-
-@ifnottex
-@node Top
-@top " str "
-
-@insertcopying
-@end ifnottex
-
-@c Generate the nodes for this menu with `C-c C-u C-m'.
-@menu
-@end menu
-
-@c Update all node entries with `C-c C-u C-n'.
-@c Insert new nodes with `C-c C-c n'.
-@node Chapter One
-@chapter Chapter One
-
-" _ "
-
-@node Copying This Manual
-@appendix Copying This Manual
-
-@menu
-* GNU Free Documentation License::  License for copying this manual.
-@end menu
-
-@c Get fdl.texi from http://www.gnu.org/licenses/fdl.html
-@include fdl.texi
-
-@node Index
-@unnumbered Index
-
-@printindex cp
-
-@bye
-
-@c " (file-name-nondirectory (buffer-file-name)) " ends here
-"))))
- '(auto-insert-mode t)
- '(bell-inhibit-time 2)
- '(blink-cursor-delay 0)
- '(blink-cursor-interval 0.5)
- '(blink-matching-paren nil)
- '(c-default-style (quote ((java-mode . "java") (other . "Corrected gnu"))))
- '(case-fold-search t)
  '(cedet-android-sdk-root "~/Dev/android-sdk-linux/")
  '(clip-large-size-font t t)
- '(column-number-mode t)
  '(completion-resolve-old-method (quote leave))
  '(completion-tooltip-delay 0)
  '(completion-tooltip-timeout 100)
- '(cua-auto-tabify-rectangles nil)
- '(cua-enable-cua-keys nil)
- '(cua-enable-cursor-indications t)
- '(cua-enable-modeline-indications nil)
- '(cua-enable-region-auto-help t)
- '(cua-mode t nil (cua-base))
- '(current-language-environment "UTF-8")
  '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes (quote ("dd0c53e873e23298716844777306ab88685278d4d5547efb0bd3f10b50cffef7" "9370aeac615012366188359cb05011aea721c73e1cb194798bc18576025cabeb" "1177fe4645eb8db34ee151ce45518e47cc4595c3e72c55dc07df03ab353ad132" "4c9ba94db23a0a3dea88ee80f41d9478c151b07cb6640b33bfc38be7c2415cc4" "3ad55e40af9a652de541140ff50d043b7a8c8a3e73e2a649eb808ba077e75792" default)))
- '(default-justification (quote left))
- '(diff-switches "-u")
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.32")
  '(ecb-show-node-info-in-minibuffer (quote ((always . path) (always . name) (always . path) (always . name+type))))
@@ -174,7 +23,6 @@ The document was typeset with
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse" "/usr/lib/eclipse" "/usr/local/lib/eclipse" "/usr/share/eclipse" "~/Skrivebord/eclipse/")))
  '(eclim-executable (or (executable-find "eclim") (eclim-homedir-executable-find) (eclim-executable-find) "~/Skrivebord/eclipse/eclim/eclim"))
  '(ede-project-directories (quote ("/tmp/edetest")))
- '(ediff-custom-diff-options "-u")
  '(ediff-diff-options "")
  '(fast-lock-minimum-size 2000)
  '(fci-rule-color "#383838")
@@ -185,24 +33,6 @@ The document was typeset with
  '(font-lock-mark-block-function nil t)
  '(font-lock-maximum-decoration t)
  '(fringe-mode 10 nil (fringe))
- '(glasses-face (quote bold))
- '(glasses-original-separator "")
- '(glasses-separator "")
- '(global-cwarn-mode t)
- '(global-font-lock-mode t nil (font-lock))
- '(global-hl-line-mode t)
- '(global-semantic-decoration-mode t)
- '(global-semantic-highlight-edits-mode nil nil (semantic/util-modes))
- '(global-semantic-highlight-func-mode t)
- '(global-semantic-idle-completions-mode nil nil (semantic/idle))
- '(global-semantic-idle-scheduler-mode t)
- '(global-semantic-idle-summary-mode t)
- '(global-semantic-show-parser-state-mode nil nil (semantic/util-modes))
- '(global-semantic-show-unmatched-syntax-mode nil nil (semantic/util-modes))
- '(global-semantic-stickyfunc-mode t nil (semantic/util-modes))
- '(global-senator-minor-mode t nil (semantic/senator))
- '(global-srecode-minor-mode t nil (srecode))
- '(gnuserv-program (concat exec-directory "/gnuserv"))
  '(highlight-completion-list-external (quote (t t t t t t t t t t)))
  '(highlight-wrong-size-font nil t)
  '(icomplete-minibuffer-setup-hook (quote ((lambda nil (make-local-variable (quote max-mini-window-height)) (setq max-mini-window-height 3)))))

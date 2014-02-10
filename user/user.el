@@ -20,3 +20,5 @@
 
 (set-language-environment "UTF-8")
 
+(setq diff-switches "-u")
+(setq ediff-custom-diff-options "-u")
