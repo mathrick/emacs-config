@@ -25,14 +25,16 @@
 (cua-mode)
 
 ;; Theme
+(load-theme 'zenburn)
+(eval-after-load 'zenburn-theme
+  '(progn
+     (add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F"))
 
-(add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F"))
-
-(zenburn-with-color-variables
-  (custom-theme-set-faces
-   'zenburn
-   `(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
-   `(hl-line ((t (:background ,zenburn-green-2))))))
+     (zenburn-with-color-variables
+       (custom-theme-set-faces
+	'zenburn
+	`(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
+	`(hl-line ((t (:background ,zenburn-green-2))))))))
 
 (setq glasses-face 'bold)
 (setq glasses-original-separator "")
