@@ -32,6 +32,7 @@
 (depends-on "pos-tip")
 (depends-on "redshank")
 (depends-on "undo-tree")
+(depends-on "weechat")
 (depends-on "wgrep")
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
