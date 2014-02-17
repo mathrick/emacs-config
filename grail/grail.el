@@ -314,7 +314,8 @@ That is, user.el, keys.el, etc. live here, but not dist/ or local/")
       ;; of customize settings is a toss-up, but it only comes into
       ;; play when the user advances beyond relying on customize, and
       ;; by then the priority is sensible.
-      (load-user-elisp grail-settings-file))
+	
+	(load-elisp-if-exists custom-file))
 
       (grail-trap
         "load interface level elisp files"

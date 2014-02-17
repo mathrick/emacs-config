@@ -13,6 +13,5 @@
   "Instal a hook in HOOK that unbinds KEY"
   ;; Emacs 23 lacks lexical-binding: t
   (lexical-let ((hook hook)
-                (key key)
-                (command command))
+                (key key))
    (add-hook hook (lambda () (local-unset-key key)))))
