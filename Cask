@@ -3,6 +3,7 @@
 (source marmalade)
 
 (depends-on "cask")
+(depends-on "company")
 (depends-on "csharp-mode")
 (depends-on "dash")
 (depends-on "diff-hl")

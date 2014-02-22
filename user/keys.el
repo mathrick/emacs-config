@@ -143,7 +143,12 @@
 ;;; Electric comma gets it mostly wrong in C#-mode, so disable it
 (local-unhook-key 'csharp-mode-hook (kbd ","))
 
-(local-hook-key 'csharp-mode-hook (kbd ".") 'omnisharp-add-dot-and-auto-complete)
-(local-hook-key 'csharp-mode-hook (kbd "C-TAB") 'omnisharp-auto-complete)
+(local-hook-key 'csharp-mode-hook (kbd ".") (lambda ()
+                                              (interactive)
+                                              (self-insert-command 1)
+                                              (company-begin-backend 'company-omnisharp)))
+(local-hook-key 'csharp-mode-hook (kbd "C-<tab>") (lambda ()
+                                                    (interactive)
+                                                    (company-begin-backend 'company-omnisharp)))
 (local-hook-key 'csharp-mode-hook (kbd "M-.") 'omnisharp-go-to-definition)
 (local-hook-key 'csharp-mode-hook (kbd "M-,") 'pop-tag-mark)
