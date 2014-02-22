@@ -31,6 +31,7 @@
 (depends-on "popwin")
 (depends-on "pos-tip")
 (depends-on "redshank")
+(depends-on "smartparens")
 (depends-on "undo-tree")
 (depends-on "weechat")
 (depends-on "wgrep")

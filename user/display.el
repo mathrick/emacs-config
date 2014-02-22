@@ -184,11 +184,13 @@
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-;; Paredit
-(require 'paredit-menu)
+;; Smartparens
+(require 'smartparens-config)
 
-(add-hook 'lisp-mode-hook 'paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(smartparens-global-strict-mode)
+
+(add-hook 'lisp-mode-hook 'smartparens-mode)
+(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
 
 (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)

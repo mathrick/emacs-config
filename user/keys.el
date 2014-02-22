@@ -78,24 +78,33 @@
 ;; Python
 (local-hook-key 'python-mode-hook (kbd "RET") 'newline-and-indent)
 
-;; Paredit
-(eval-after-load "paredit"
-  '(let ((map paredit-mode-map))
-     (mapcar (lambda (key)
-               (define-key map (read-kbd-macro key) nil))
-             (list
-              "C-M-p"
-              "C-M-n"
-              "M-<up>"
-              "M-<down>"
-              "C-<right>"
-              "C-<left>"
-              "C-M-<left>"
-              "C-M-<right>"))
-     (define-key map (kbd ")") 'paredit-close-round-and-newline)
-     (define-key map (kbd "M-)") 'paredit-close-round)
-     (define-key map (kbd "<delete>") 'paredit-forward-maybe-delete-region)
-     (define-key map (kbd "DEL") 'paredit-backward-maybe-delete-region)))
+;;; Smartparens
+(eval-after-load "smartparens"
+  '(progn
+     (setq sp-base-key-bindings 'paredit)
+     (setq sp-override-key-bindings
+           '(
+             ("M-<up>"    . nil)
+             ("M-<down>"  . nil)
+             ("C-<right>" . nil)
+             ("C-<left>"  . nil)
+             
+             ("C-M-<right>" . sp-forward-sexp) ;; navigation
+             ("C-M-<left>"  . sp-backward-sexp)
+             ("C-M-<up>"    . sp-backward-up-sexp)
+             ("C-M-<down>"  . sp-down-sexp)
+             ("ESC <up>"    . sp-splice-sexp-killing-backward)
+             ("M-S-<up>"    . sp-splice-sexp-killing-backward)
+             ("ESC <down>"  . sp-splice-sexp-killing-forward)
+             ("M-S-<down>"  . sp-splice-sexp-killing-forward)
+             ("M-?"         . sp-convolute-sexp)
+             ))
+     (sp--update-override-key-bindings)
+     (define-key smartparens-mode-map (kbd "M-(") (lambda ()
+                                                    (interactive)
+                                                    (sp-wrap-with-pair "(")))
+     (define-key smartparens-strict-mode-map [remap delete-forward-char] 'sp-delete-char)
+     ))
 
 ;; Lisp
 (local-hook-key 'emacs-lisp-mode-hook (kbd "C-c C-c") 'eval-defun)
