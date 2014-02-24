@@ -1,6 +1,6 @@
-(source melpa)
-(source gnu)
-(source marmalade)
+(source "melpa" "http://melpa.milkbox.net/packages/")
+(source "gnu" "http://elpa.gnu.org/packages/")
+(source "marmalade" "http://marmalade-repo.org/packages/")
 
 (depends-on "cask")
 (depends-on "company")
@@ -31,6 +31,7 @@
 (depends-on "php-mode")
 (depends-on "popwin")
 (depends-on "pos-tip")
+(depends-on "powershell-mode")
 (depends-on "redshank")
 (depends-on "smartparens")
 (depends-on "undo-tree")
