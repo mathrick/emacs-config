@@ -47,8 +47,12 @@ if (!$I_have_read_and_understood_the_settings)
 $tmpdir = $Env:TMP, $Env:Temp | any
 
 $bzrurl = "https://launchpad.net/bzr/2.6/2.6b1/+download/bzr-2.6b1-1-setup.exe"
-$giturl = "http://msysgit.googlecode.com/files/Git-1.8.5.2-preview20131230.exe"
-$curlurl = 
+# The current installer for git (including 1.9.0) doesn't allow us to set
+# PATH in the silent install mode
+$giturl = "http://msysgit.googlecode.com/files/Git-1.9.0-preview20140217.exe"
+$curlurl = "http://www.confusedbycode.com/curl/curl-7.33.0-win32.msi"
+$tlsurl = "ftp://ftp.gnutls.org/gcrypt/gnutls/w32/gnutls-3.2.9-w32.zip"
+$lxmlurl = "ftp://ftp.zlatkovic.com/libxml/libxml2-2.7.8.win32.zip"
 
 $web = New-Object System.Net.WebClient
 $url = "http://teusje.files.wordpress.com/2011/02/giraffe-header1.png"
