@@ -1,15 +1,7 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  REM ---------------- SELF EXTRACTOR BEGIN ----------------
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  REM DO NOT MODIFY ANYTHING BETWEEN THIS LINE AND SELF EXTRACTOR END
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  REM The settings you want to modify are below the self-extractor section
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  echo off
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  echo Unpacking the installer...
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  for /f "skip=12 delims=*" %%a in (%0) do (echo %%a >> "%~dp0__tmp__extract.ps1")
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  powershell -ExecutionPolicy unrestricted "%~dp0__tmp__extract.ps1"
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  del /f "%~dp0__tmp__extract.ps1"
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  goto :eof
-
-------------------------- SELF EXTRACTOR END ---------------------------
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@ REM DO NOT MODIFY THIS LINE
+@@@@ goto :_extract
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # Powershell is insane, we need that
 function any { $input | select-object -first 1 }
@@ -58,3 +50,16 @@ $web = New-Object System.Net.WebClient
 $url = "http://teusje.files.wordpress.com/2011/02/giraffe-header1.png"
 $file = "$pwd\myNewFilename.png"
 # $web.DownloadFile($url,$file)
+
+exit
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+:_extract
+
+@echo off
+
+echo Unpacking the installer...
+for /f "skip=4 delims=*" %%a in (%0) do (echo %%a >> "%~dp0__tmp__extract.ps1")
+powershell -ExecutionPolicy unrestricted "%~dp0__tmp__extract.ps1"
+del /f "%~dp0__tmp__extract.ps1"
+goto :eof
+
