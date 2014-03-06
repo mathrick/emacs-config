@@ -1,7 +1,6 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@ REM DO NOT MODIFY THIS LINE
-@@@@ goto :_extract
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@goto :_extract @@@ DO NOT REMOVE OR EDIT THIS LINE
+
+##__BEGIN_INSTALLER -- do not remove or edit this line
 
 # Powershell is insane, we need that
 function any { $input | select-object -first 1 }
@@ -52,14 +51,53 @@ $file = "$pwd\myNewFilename.png"
 # $web.DownloadFile($url,$file)
 
 exit
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+##__END_INSTALLER -- do not remove or edit this line
+
 :_extract
 
 @echo off
+setlocal EnableDelayedExpansion
+
+call :cutsection %0 INSTALLER __installer-extract.ps1
+goto :eof
 
 echo Unpacking the installer...
-for /f "skip=4 delims=*" %%a in (%0) do (echo %%a >> "%~dp0__tmp__extract.ps1")
+for /f "skip=1 delims=*" %%a in (%0) do (echo %%a >> "%~dp0__tmp__extract.ps1")
 powershell -ExecutionPolicy unrestricted "%~dp0__tmp__extract.ps1"
 del /f "%~dp0__tmp__extract.ps1"
 goto :eof
 
+:cutsection
+setlocal
+    call :findline %1 ##__BEGIN_%2
+    set /a begin=%result% + 1
+    echo begin: %begin%
+    call :findline %1 ##__END_%2
+    set /a end=%result% - 1
+    echo end: %end%!
+    call :cutlines %1 %begin% %end% %3
+endlocal
+goto :eof
+
+:cutlines
+setlocal
+    set /a FirstLineNumber = %2
+    set /a LastLineNumber = %3
+    
+    SET /a counter=1
+    
+    for /f "tokens=1* delims=]" %%a in ('type "%1" ^| find /n /v ""') do (
+        if !counter! GTR !LastLineNumber! goto :eof
+        @@REM echo( makes it possible to echo blanks, rather than "echo is off"
+        if !counter! GEQ !FirstLineNumber! echo(%%b >> %4
+        set /a counter+=1
+    )
+endlocal
+goto :eof
+
+:findline
+    for /f "tokens=1 delims=:" %%a in ('
+    findstr /b /n /c:"%2" %1
+    ') do set result=%%a
+goto :eof
