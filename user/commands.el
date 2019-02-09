@@ -1,5 +1,7 @@
 ;;; Interactive commands to be loaded by grail.el
 
+(defalias 'ms 'magit-status)
+
 ;; GDB
 (defun gud-attach-dwim (prg-name) 
   (interactive "sAttach to running programme: ")

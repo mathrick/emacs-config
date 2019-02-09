@@ -8,8 +8,6 @@
 (setq bell-inhibit-time 2)
 
 ;;; Parens and cursor
-(setq blink-cursor-delay 0)
-(setq blink-cursor-interval 0.5)
 (setq blink-matching-paren nil)
 (setq column-number-mode t)
 
@@ -26,15 +24,21 @@
 
 ;; Theme
 (load-theme 'zenburn)
-(eval-after-load 'zenburn-theme
-  '(progn
-     (add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F"))
 
-     (zenburn-with-color-variables
-       (custom-theme-set-faces
-	'zenburn
-	`(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
-	`(hl-line ((t (:background ,zenburn-green-2))))))))
+;; Adding to 'zenburn-colors-alist must be done in a different eval
+;; form than (zenburn-with-color-variables), because eval-after-load
+;; has idiotic evaluation rules and will expand it too early, resuling
+;; in void variable errors
+(eval-after-load 'zenburn-theme
+  '(add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F")))
+
+(eval-after-load 'zenburn-theme
+  '(zenburn-with-color-variables
+    (message "Zenburn green: %s" zenburn-fg)
+    (custom-theme-set-faces
+     'zenburn
+     `(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
+     `(hl-line ((t (:background ,zenburn-green-2)))))))
 
 (setq glasses-face 'bold)
 (setq glasses-original-separator "")
@@ -69,6 +73,11 @@
 (put 'scroll-left 'disabled nil)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+
+;; Magit
+(eval-after-load 'magit
+  '(magit-define-popup-switch 'magit-push-popup
+     ?! "Really force" "--force" nil ?f))
 
 ;; SKK
 ;; SKK が検索する辞書 (サーバを使わないとき)
@@ -187,7 +196,8 @@
 ;; Smartparens
 (require 'smartparens-config)
 
-(smartparens-global-strict-mode)
+(eval-after-load 'smartparens
+  '(smartparens-global-strict-mode 1))
 
 (add-hook 'lisp-mode-hook 'smartparens-mode)
 (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
