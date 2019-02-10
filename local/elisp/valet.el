@@ -116,6 +116,36 @@ source to install from."
                                    (format "Error: %s at %s:%s.%s" (cadr err) file line col)
                                  (format "Error at %s:%s.%s" file line col))))))))
 
+(defun valet-record (file)
+  "Record installed packages in FILE. Companion to `valet-ensure'."
+  (interactive "FRecord packages to file: ")
+  (let* ((forms (mapcar #'car (when (file-exists-p file)
+                                (valet--read-package-list file))))
+         (package-forms (cl-loop for (head . rest) in forms
+                                 when (eq head 'package)
+                                 collect
+                                 (destructuring-bind (package &key source disabled) rest
+                                   (cons head rest))))
+         (header-forms (set-difference forms package-forms :test #'equal))
+         (recorded (mapcar #'cadr package-forms))
+         (installed (mapcar (lambda (x) (valet--as-name (car x))) package-alist))
+         (new (set-difference installed recorded :test #'string=)))
+    (with-temp-buffer
+      (save-excursion
+        (insert ";;; -*- mode: emacs-lisp -*-\n")
+        (insert ";;; This is a Valet file maintained by valet.el\n")
+        (cl-loop for form in (append header-forms '(nil)
+                                     (cl-sort
+                                      (append package-forms
+                                              (cl-loop for pkg in new
+                                                       collect `(package ,pkg)))
+                                      (lambda (x y)
+                                        (string< (valet--as-name x) (valet--as-name y)))
+                                      :key #'cadr))
+                 do (when form (prin1 form (current-buffer)))
+                 do (insert "\n"))
+        (write-region (point-min) (point-max) file)))))
+
 (defun valet--ensure-init ()
   (unless package--initialized
     (package-initialize t))
@@ -175,14 +205,15 @@ source to install from."
 
 (defun valet--eval-form (form)
   "Define and interpret the Valet file DSL"
-  (cl-destructuring-bind (head . rest) form
+  (cl-destructuring-bind (head &rest rest) form
     (cond
      ((eq head 'source)
       (cl-destructuring-bind (name &optional location) rest
         (valet-add-source name location)))
      ((eq head 'package)
-      (cl-destructuring-bind (name &key source) rest
-        (valet-ensure-package name source)))
+      (cl-destructuring-bind (name &key source disabled) rest
+        (unless disabled
+          (valet-ensure-package name source))))
      (t (error "Uknown Valet directive `%s'" head)))))
 
 (provide 'valet)

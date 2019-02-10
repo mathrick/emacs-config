@@ -4,6 +4,7 @@
 
 ;; Valet takes care of installing and recording packages
 (require 'valet)
+(valet-ensure (expand-file-name "Valet" grail-elisp-root))
 
 ;;; Customisations begin here
 (require 'ls-lisp)
