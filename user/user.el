@@ -2,10 +2,8 @@
 ;; are managed, and how to initialise and fetch packages on a fresh
 ;; Emacs
 
-;; Pallet takes care of summarising installed packages as a Cask manifest
-(require 'pallet)
-;; We need to coax it to play nice with grail
-(load-library "pallet-overrides")
+;; Valet takes care of installing and recording packages
+(require 'valet)
 
 ;;; Customisations begin here
 (require 'ls-lisp)
