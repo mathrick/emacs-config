@@ -15,14 +15,16 @@
 ;; designated file, then install any that aren't present upon Emacs
 ;; initialisation. This way you only need to commit one small file to
 ;; represent all the packages your config uses.
-;; 
+;;
 
-;; 
+;;
 
 ;;; Code:
 
 (require 'cl-lib)
 (require 'package)
+
+;; Custom and public constants and variables
 
 (defcustom valet-default-package-file
   (expand-file-name "Valet" user-emacs-directory)
@@ -35,6 +37,8 @@
     ("melpa-stable" . "https://stable.melpa.org/packages/"))
   "List of package.el repositories known by name, whose location
   doesn't need to be provided")
+
+;; Public interface
 
 (defun valet-add-source (name location)
   (interactive
@@ -146,6 +150,16 @@ source to install from."
                  do (insert "\n"))
         (write-region (point-min) (point-max) file)))))
 
+;; Private functions
+
+(defvar valet--source-notes ()
+  "Records information about sources requested through Valet
+  file.")
+
+(defvar valet--package-notes ()
+  "Records package information such as specific sources requested
+  through Valet file.")
+
 (defun valet--ensure-init ()
   (unless package--initialized
     (package-initialize t))
@@ -183,6 +197,15 @@ source to install from."
       ;; If no source specified, just return the symbol
       (car cand))))
 
+(defun valet--note-package (name &optional source disabled)
+  (let* ((name (valet--as-name name))
+         (source (when source (intern (valet--as-name name))))
+         (args (append (when source
+                         `(:source ,source))
+                       (when disabled
+                         `(:disabled t)))))
+   (add-to-list 'valet--package-notes `(package ,@args))))
+
 (defun valet--read-package-list (file)
   "Read the Valet file given by FILE"
   (unless (file-exists-p file)
@@ -203,6 +226,71 @@ source to install from."
                           (error "Error reading Valet file %s:%s,%s: %s"
                                  file (elt pos 1) (elt pos 2) err)))))))
 
+(defun valet--compute-plan (manifest)
+  "Compute a plan to install packages from MANIFEST if
+possible. Manifest should be a list of entries of shape
+\(PACKAGE-NAME &KEY MIN-VERSION MAX-VERSION).
+
+Returns a plan, a list of (PACKAGE-NAME PACKAGE-DESC)"
+  (cl-labels
+      ((ensure-list (x)
+                    (if (listp x)
+                        x
+                      (list x)))
+       (as-version (spec)
+                   (destructuring-bind (pkg &optional version) spec
+                     (list pkg (or version (list 0)))))
+       (in-hash (key hash)
+                (not (eq (gethash key hash 'not-found) 'not-found)))
+       (update (candidate min-version registry &optional seen)
+               (let* ((name (package-desc-name candidate))
+                      ;; If we've seen our name previously, there's a dependency loop
+                      (loop (when (cl-find name seen)
+                              (error "Dependency loop detected: %s" (reverse seen))))
+                      (feasible-p
+                       (and (version-list-<= min-version
+                                             (package-desc-version candidate))
+                            ;; If registry already contains any
+                            ;; candidates for the same name, our
+                            ;; candidate must be in it (otherwise
+                            ;; it's been previously ruled out)
+                            (or (not (in-hash name registry))
+                                (cl-find candidate (gethash name registry)))
+                            ;; If the candidate specifies any
+                            ;; requirements, all of them must be
+                            ;; feasible as well
+                            (if (package-desc-reqs candidate)
+                                ;; For every requirement...
+                                (cl-every (lambda (req)
+                                            (destructuring-bind (req-name req-version)
+                                                (as-version req)
+                                              (unless (in-hash req-name registry)
+                                                (setf (gethash req-name registry)
+                                                      (cdr (assq req-name package-archive-contents))))
+                                              (or
+                                               ;; ...it's either already installed...
+                                               (package-installed-p req-name req-version)
+                                               ;; ...or at least some versions are feasible
+                                               (cl-some (lambda (req-cand)
+                                                          (update req-cand
+                                                                  req-version
+                                                                  registry
+                                                                  (cons name seen)))
+                                                        (gethash req-name registry)))))
+                                          (package-desc-reqs candidate))
+                              t))))
+                 (if feasible-p
+                     t
+                   (setf (gethash name registry)
+                         (remove candidate (gethash name registry)))
+                   nil))))
+    (let ((registry (make-hash-table)))
+      (cl-loop for (pkg &rest rest) in manifest
+               do (setf (gethash pkg registry)
+                        (cdr (assq pkg package-archive-contents))))
+
+      )))
+
 (defun valet--eval-form (form)
   "Define and interpret the Valet file DSL"
   (cl-destructuring-bind (head &rest rest) form
@@ -213,6 +301,7 @@ source to install from."
      ((eq head 'package)
       (cl-destructuring-bind (name &key source disabled) rest
         (unless disabled
+          (valet--note-package name source)
           (valet-ensure-package name source))))
      (t (error "Uknown Valet directive `%s'" head)))))
 
