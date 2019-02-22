@@ -6,8 +6,11 @@
 (require 'valet)
 (valet-ensure (expand-file-name "Valet" grail-elisp-root))
 
+;; jwiegley/use-package
+(require 'use-package)
+
 ;;; Customisations begin here
-(require 'ls-lisp)
+(use-package ls-lisp)
 
 (add-to-list 'Info-directory-list (expand-file-name "info" grail-elisp-root))
 

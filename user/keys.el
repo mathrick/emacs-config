@@ -35,26 +35,8 @@
 (global-set-key (kbd "C-x RR") 'replace-regexp)
 (global-set-key (kbd "C-x RQ") 'query-replace-regexp)
 
-;; Multiple cursors
-(require 'mc-cycle-cursors)
-
-(global-set-key (kbd "C-c C->") 'mc/edit-lines)
-(global-set-key (kbd "M-RET") 'set-rectangular-region-anchor)
-
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
-(global-set-key (kbd "M->") 'mc/mark-all-dwim)
-
-;; I hate RET cancelling MC, I have C-g for that
-(eval-after-load 'multiple-cursors-core '(define-key mc/keymap (kbd "<return>") nil))
-
 (global-set-key (kbd "C-?") 'er/expand-region)
 (global-set-key (kbd "M-?") 'er/contract-region)
-;; Undo-tree breaks our -?'s, let's undo it
-(eval-after-load 'undo-tree '(progn
-                               (define-key undo-tree-map (kbd "C-?") nil)
-                               (define-key undo-tree-map (kbd "M-?") nil)))
 
 ;; Dired
 (local-hook-key 'dired-mode-hook "r" 'wdired-change-to-wdired-mode)

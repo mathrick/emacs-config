@@ -2,7 +2,14 @@
 
 (mouse-wheel-mode t)
 (column-number-mode t)
-(global-undo-tree-mode 1)
+
+(use-package undo-tree
+  :config (global-undo-tree-mode 1)
+  ;; Undo-tree breaks our -?'s, let's undo it
+  :bind (:map undo-tree-map
+        ("C-?" . nil)
+        ("M-?" . nil)))
+
 ;; no bell please
 (setq ring-bell-function (lambda ()))
 (setq bell-inhibit-time 2)
@@ -23,34 +30,29 @@
 (cua-mode)
 
 ;; Theme
-(load-theme 'zenburn)
-
-;; Adding to 'zenburn-colors-alist must be done in a different eval
-;; form than (zenburn-with-color-variables), because eval-after-load
-;; has idiotic evaluation rules and will expand it too early, resuling
-;; in void variable errors
-(eval-after-load 'zenburn-theme
-  '(add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F")))
-
-(eval-after-load 'zenburn-theme
-  '(zenburn-with-color-variables
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn)
+  (add-to-list 'zenburn-colors-alist '("zenburn-green-2" . "#4F5F4F"))
+  :config
+  (zenburn-with-color-variables
     (message "Zenburn green: %s" zenburn-fg)
     (custom-theme-set-faces
      'zenburn
      `(region ((t (:foreground ,zenburn-fg :background ,zenburn-fg-1))))
      `(hl-line ((t (:background ,zenburn-green-2)))))))
 
-(setq glasses-face 'bold)
-(setq glasses-original-separator "")
-(setq glasses-separator "")
-
-(add-hook 'c-mode-common-hook 'auto-fill-mode)
-(add-hook 'c-mode-common-hook 'glasses-mode)
+(use-package glasses
+  :init
+  (setq glasses-face 'bold)
+  (setq glasses-original-separator "")
+  (setq glasses-separator "")
+  :hook
+  (c-mode-common . glasses-mode)
+  (c-mode-common . auto-fill-mode))
 
 (global-cwarn-mode)
-
 (global-font-lock-mode)
-
 (global-hl-line-mode)
 
 ;; The built-in GNU style is broken, fix it
@@ -66,18 +68,20 @@
                         (csharp-mode . "c#")
                         (other . "Corrected gnu")))
 
-(put 'narrow-to-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-(put 'scroll-left 'disabled nil)
+(dolist (command '(narrow-to-region
+                   upcase-region
+                   downcase-region
+                   set-goal-column
+                   scroll-left))
+        (put command 'disabled nil))
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
 
 ;; Magit
-(eval-after-load 'magit
-  '(magit-define-popup-switch 'magit-push-popup
-     ?! "Really force" "--force" nil ?f))
+(use-package magit
+  :config
+  (magit-define-popup-switch 'magit-push-popup
+    ?! "Really force" "--force" nil ?f))
 
 ;; SKK
 ;; SKK が検索する辞書 (サーバを使わないとき)
@@ -135,18 +139,19 @@
 
 ;; TODO: migrate that to semantic-default-submodes
 ;; (semantic-load-enable-gaudy-code-helpers)
-(semantic-mode 1)
-(global-semantic-idle-completions-mode -1)
-
-(global-semantic-decoration-mode)            
-(global-semantic-highlight-edits-mode)       
-(global-semantic-highlight-func-mode)        
-(global-semantic-idle-completions-mode)      
-(global-semantic-idle-scheduler-mode)        
-(global-semantic-idle-summary-mode)          
-(global-semantic-show-parser-state-mode)     
-(global-semantic-show-unmatched-syntax-mode) 
-(global-semantic-stickyfunc-mode)            
+(use-package semantic
+  :config
+  (setq semantic-default-submodes
+        '(global-semantic-decoration-mode
+          global-semantic-highlight-edits-mode
+          global-semantic-highlight-func-mode
+          global-semantic-idle-completions-mode
+          global-semantic-idle-scheduler-mode
+          global-semantic-idle-summary-mode
+          global-semantic-show-parser-state-mode
+          global-semantic-show-unmatched-syntax-mode
+          global-semantic-stickyfunc-mode))
+  (semantic-mode 1))
 
 ;; (enable-visual-studio-bookmarks)
 ;; (add-to-list 'compilation-finish-functions 'lmcompile-do-highlight)
@@ -156,51 +161,53 @@
 ;; (semantic-hover-completion-install-c-hooks)
 ;; (add-hook 'c-mode-common-hook (lambda () (local-set-key [(meta \?)] 'semantic-hover-completion-popup)))
 
-(global-ede-mode 1)
+(use-package ede
+  :config (global-ede-mode 1))
 
-;; Org mode
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(setq org-log-done t)
+(use-package org
+  :mode ("\\.org$" . org-mode)
+  :config
+  (setq org-log-done t)
 
-(setq org-modules '(org-bbdb
-                    org-bibtex
-                    org-docview
-                    org-gnus
-                    org-info
-                    org-jsinfo
-                    org-irc
-                    org-mew
-                    org-mhe
-                    org-rmail
-                    org-special-blocks
-                    org-vm
-                    org-wl
-                    org-w3m))
+  (setq org-todo-keywords '((sequence "TODO" "DONE")
+                            (sequence "BUG" "WISHLIST" "|" "FIXED" "WONTFIX" "NOTABUG")
+                            (sequence "PENDING" "REPEAT" "|" "FAILED" "SUCCESS")))
+  (put 'org-beginning-of-line 'CUA 'move)
+  (put 'org-end-of-line 'CUA 'move)
 
-(setq org-todo-keywords '((sequence "TODO" "DONE")
-                          (sequence "BUG" "WISHLIST" "|" "FIXED" "WONTFIX" "NOTABUG")
-                          (sequence "PENDING" "REPEAT" "|" "FAILED" "SUCCESS")))
+  (setq org-hide-leading-stars t)
+  (setq org-odd-levels-only t)
+  (setq org-pretty-entities t))
 
-(put 'org-beginning-of-line 'CUA 'move)
-(put 'org-end-of-line 'CUA 'move)
+(use-package org-bullets
+  :init (setq org-bullets-bullet-list '("✸" "✿" "◉" "○"))
+  :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
-(setq org-bullets-bullet-list '("✸" "✿" "◉" "○"))
+(use-package multiple-cursors
+  :demand t
+  :bind
+  (("C-c C->" . mc/edit-lines)
+   ("C->" . mc/mark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-M->" . mc/skip-to-next-like-this)
+   ("M->" . mc/mark-all-dwim)
+   :map mc/keymap
+   ;; I hate RET cancelling MC, I have C-g for that
+   ("<return>" . nil)))
 
-(setq org-hide-leading-stars t)
-(setq org-odd-levels-only t)
-(setq org-pretty-entities t)
+(use-package mc-cycle-cursors
+  :after multiple-cursors)
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package rectangular-region-mode
+  :after multiple-cursors
+  :config (message "wheee")
+  :bind ("M-<return>" . set-rectangular-region-anchor))
 
-;; Smartparens
-(require 'smartparens-config)
-
-(eval-after-load 'smartparens
-  '(smartparens-global-strict-mode 1))
-
-(add-hook 'lisp-mode-hook 'smartparens-mode)
-(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+(use-package smartparens-config
+  :config (smartparens-global-strict-mode 1)
+  :hook
+  (lisp-mode . smartparens-mode)
+  (emacs-lisp-mode . smartparens-mode))
 
 (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
@@ -209,7 +216,7 @@
 (add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
 
 (defun define-cl-indent (el)
-  (put (car el) 'common-lisp-indent-function 
+  (put (car el) 'common-lisp-indent-function
        (if (symbolp (cdr el))
            (get (cdr el) 'common-lisp-indent-function)
          (cadr el))))
@@ -235,6 +242,17 @@
     :doc-spec '(("(ansicl)Symbol Index" nil nil nil)))
 
 (key-chord-mode 1)
+
+;; (add-hook 'python-mode-hook '(lambda () (pungi:setup-jedi)))
+;; prevent : from fucking up indentation
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq electric-indent-chars (delq ?: electric-indent-chars))))
+
+;; Turn off for python, since it doesn't understand 'except Foo as exc'
+(add-hook 'python-mode-hook
+          (lambda ()
+            (semantic-show-unmatched-syntax-mode 0)))
 
 ;;; Guess basic indent offsets
 (dtrt-indent-mode 1)
@@ -386,4 +404,3 @@ The document was typeset with
 "))))
 
 (setq auto-insert-mode t)
-

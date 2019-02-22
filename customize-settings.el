@@ -27,10 +27,11 @@
      ("^dvi$" "." "%(o?)xdvi %dS %d")
      ("^pdf$" "." "evince %o")
      ("^html?$" "." "netscape %o"))))
+ '(confirm-kill-emacs (quote y-or-n-p))
  '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes
    (quote
-    ("d057f0430ba54f813a5d60c1d18f28cf97d271fd35a36be478e20924ea9451bd" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" "dd0c53e873e23298716844777306ab88685278d4d5547efb0bd3f10b50cffef7" "9370aeac615012366188359cb05011aea721c73e1cb194798bc18576025cabeb" "1177fe4645eb8db34ee151ce45518e47cc4595c3e72c55dc07df03ab353ad132" "4c9ba94db23a0a3dea88ee80f41d9478c151b07cb6640b33bfc38be7c2415cc4" "3ad55e40af9a652de541140ff50d043b7a8c8a3e73e2a649eb808ba077e75792" default)))
+    ("11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" "dd0c53e873e23298716844777306ab88685278d4d5547efb0bd3f10b50cffef7" "9370aeac615012366188359cb05011aea721c73e1cb194798bc18576025cabeb" "1177fe4645eb8db34ee151ce45518e47cc4595c3e72c55dc07df03ab353ad132" "4c9ba94db23a0a3dea88ee80f41d9478c151b07cb6640b33bfc38be7c2415cc4" "3ad55e40af9a652de541140ff50d043b7a8c8a3e73e2a649eb808ba077e75792" default)))
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.32")
  '(ecb-show-node-info-in-minibuffer
@@ -87,6 +88,10 @@
     (shell-mode custom-mode dired-mode telnet-mode c-mode)))
  '(pabbrev-global-mode-not-buffer-names (quote ("*Messages*")))
  '(pabbrev-idle-timer-verbose nil)
+ '(package-selected-packages
+   (quote
+    (sly use-package counsel swiper git commander zenburn-theme yasnippet wgrep weechat web-beautify undo-tree smartparens redshank pyenv-mode puppet-mode pungi pos-tip popwin php-mode paredit-menu paredit-everywhere paradox pallet ox-gfm org-bullets org omnisharp nsis-mode multiple-cursors minimap mic-paren magit-filenotify lively key-chord iy-go-to-char highlight-parentheses groovy-mode expand-region emmet-mode ecb dtrt-indent diff-hl cython-mode company)))
+ '(paradox-github-token t)
  '(paren-dont-load-timer nil)
  '(paren-dont-touch-blink nil)
  '(paren-sexp-mode (quote mismatch))
@@ -197,9 +202,7 @@
  '(save-abbrevs nil)
  '(save-place t nil (saveplace))
  '(scroll-preserve-screen-position t)
- '(semantic-default-submodes
-   (quote
-    (global-semantic-decoration-mode global-semantic-stickyfunc-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode)))
+ '(select-enable-clipboard t)
  '(semanticdb-global-mode t nil (semantic/db))
  '(server-done-hook (quote ((lambda nil (delete-frame)))))
  '(show-paren-mode t)
@@ -251,7 +254,6 @@
  '(wdired-use-interactive-rename nil)
  '(which-function-mode nil)
  '(windmove-wrap-around t)
- '(x-select-enable-clipboard t)
  '(x-symbol-initialize nil)
  '(yas/use-menu (quote abbreviate))
  '(yas/wrap-around-region (quote cua)))
@@ -261,4 +263,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#3F3F3F" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "unci" :family "monofur for Powerline")))))
