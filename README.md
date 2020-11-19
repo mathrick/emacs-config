@@ -1,3 +1,7 @@
+___
+**NOTE: THIS CONFIG IS OUTDATED.** It has been broken for several years now, due to huge, incompatible changes to Cask and Pallet. It no longer provides any sort of bootstrapping or automatic recording of installs. I have since migrated to Doom, and now am in the process of migrating away from Doom. Hopefully, what comes out on the other end will be better, richer, and more robust than what you're looking at here.
+___
+
 What is it?
 ===========
 
@@ -85,6 +89,7 @@ to be able to find the just-installed packages properly. It still
 works in the end.
 
 <a name="stealing"/>
+
 So you mentioned stealing it for myself. How do I do that?
 ----------------------------------------------------------
 
