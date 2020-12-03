@@ -1,36 +1,39 @@
-(init! :base					;; Base OS, Emacs and Mood config. You probably want all of them
-       defaults					;; You want them
-       os-support				;; Make working on Windows suck less
+(init! :base                                    ;; Base OS, Emacs and Mood config. You probably want all of them
+       defaults                                 ;; You want them
+       os-support                               ;; Make working on Windows suck less
 
-       :theme					;; A fresh coat of paint
-       (doom-themes :theme 'doom-gruvbox)	;; Great artists steal
-       ;zenburn					;; The original dark theme
+       :theme                                   ;; A fresh coat of paint
+       (doom-themes :theme 'doom-gruvbox)       ;; Great artists steal
+       ;zenburn                                 ;; The original dark theme
 
-       :ui					;; General appearance and behaviour
-       ;defaults				;; Things we can all agree make sense
+       :ui                                      ;; General appearance and behaviour
+       mood
+       ;defaults                                ;; Things we can all agree make sense
        (defaults :font "monofur for Powerline")
-       auto-dim					;; I want to know where to look
-       doom-modeline				;; Shinier modeline
-       (icomplete +vertical)			;; The unsurprising minibuffer completion
-       ;; (scrolling +yascroll +smooth)		;; Fancy scrollbars, or minimap, or whatever
-       undo					;; Less confusing undo system
-       ;(undo +fu +session)			;; (undo-tree by default, but you can choose undo-fu)
+       auto-dim                                 ;; I want to know where to look
+       doom-modeline                            ;; Shinier modeline
+       (icomplete +vertical)                    ;; The unsurprising minibuffer completion
+       (scrolling +yascroll +smooth)            ;; Fancy scrollbars, or minimap, or whatever
+       undo                                     ;; Less confusing undo system
+       ;(undo +fu +session)                     ;; (undo-tree by default, but you can choose undo-fu)
 
-       ;; :editing					;; It's not an emacsitor!
-       ;; defaults					;; Basic quality of life improvements
-       ;; company					;; It's dangerous to type alone
-       ;; expand-region				;; Make 'em bigger
-       ;; smartparens				;; Nobody likes counting 'em
-       ;; multiple-cursors				;; Trust me, you want this
-       ;; visual-regexp				;; Not for parsing HTML
+       :editing                                 ;; It's not an emacsitor!
+       defaults                                 ;; Basic quality of life improvements
+       company                                  ;; It's dangerous to type alone
+       expand-region                            ;; Make 'em bigger
+       smartparens                              ;; Nobody likes counting 'em
+       multiple-cursors                         ;; Trust me, you want this
+       visual-regexp                            ;; Not for parsing HTML
 
-       ;; :vcs					;; Git, Bazaar, Hg, and others
-       ;; magit					;; Honestly, don't even bother with git otherwise
+       :vcs                                     ;; Git, Bazaar, Hg, and others
+       magit                                    ;; Honestly, don't even bother with git otherwise
 
-       ;; :lang					;; Languages, of the programming kind
-       ;; (elisp +nameless)			;; This is Emacs, after all
-       ;; python
-       ;; And the flying circus
+       :checkers                                ;; Trust, but verify
+       syntax ;; Get squigglies when programming
+
+       :lang                                    ;; Languages, of the programming kind
+       (elisp +nameless)                        ;; This is Emacs, after all
+       python                                   ;; And the flying circus
        )
 
 (defalias 'ms 'magit-status)
