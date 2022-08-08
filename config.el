@@ -1,40 +1,53 @@
-(init! :base                                    ;; Base OS, Emacs and Mood config. You probably want all of them
-       defaults                                 ;; You want them
-       os-support                               ;; Make working on Windows suck less
+(init! :base                                    ; Base OS, Emacs and Mood config. You probably want all of them
+       defaults                                 ; You want them
+       os-support                               ; Make working on Windows suck less
 
-       :theme                                   ;; A fresh coat of paint
-       (doom-themes :theme 'doom-gruvbox)       ;; Great artists steal
-       ;zenburn                                 ;; The original dark theme
+       :theme                                   ; A fresh coat of paint
+       (doom-themes :theme 'doom-gruvbox)       ; Great artists steal
+       ;;zenburn                                ; The original dark theme
 
-       :ui                                      ;; General appearance and behaviour
+       :ui                                      ; General appearance and behaviour
        mood
-       ;defaults                                ;; Things we can all agree make sense
+       ;;defaults                               ; Things we can all agree make sense
        (defaults :font "monofur for Powerline")
-       auto-dim                                 ;; I want to know where to look
-       doom-modeline                            ;; Shinier modeline
-       (icomplete +vertical)                    ;; The unsurprising minibuffer completion
-       (scrolling +yascroll +smooth)            ;; Fancy scrollbars, or minimap, or whatever
-       undo                                     ;; Less confusing undo system
-       ;(undo +fu +session)                     ;; (undo-tree by default, but you can choose undo-fu)
+       auto-dim                                 ; I want to know where to look
+       doom-modeline                            ; Shinier modeline
+       ;; (icomplete +vertical)                    ; The unsurprising minibuffer completion
+       ;; (selectrum -history)                     ; Flexible minibuffer completion and narrowing
+       (vertico -history +posframe)                       ; Like selectrum, but even simpler
+       (scrolling +yascroll)			; Fancy scrollbars, or minimap, or whatever
+       undo                                     ; Less confusing undo system
+       ;;(undo +fu +session)                    ; (undo-tree by default, but you can choose undo-fu)
+       windswap                                 ; Like windmove, but also moves buffers
 
-       :editing                                 ;; It's not an emacsitor!
-       defaults                                 ;; Basic quality of life improvements
-       company                                  ;; It's dangerous to type alone
-       expand-region                            ;; Make 'em bigger
-       smartparens                              ;; Nobody likes counting 'em
-       multiple-cursors                         ;; Trust me, you want this
-       visual-regexp                            ;; Not for parsing HTML
+       :editing                                 ; It's not an emacsitor!
+       defaults                                 ; Basic quality of life improvements
+       company                                  ; It's dangerous to type alone
+       expand-region                            ; Make 'em bigger
+       realgud					; The unified debugger interface, MkII
+       smartparens                              ; Nobody likes counting 'em
+       multiple-cursors                         ; Trust me, you want this
+       visual-regexp                            ; Not for parsing HTML
+       visual-fill                              ; I don't want my text as wide as my screen
 
-       :vcs                                     ;; Git, Bazaar, Hg, and others
-       magit                                    ;; Honestly, don't even bother with git otherwise
+       copy-file-on-save
 
-       :checkers                                ;; Trust, but verify
-       syntax ;; Get squigglies when programming
+       :vcs                                     ; Git, Bazaar, Hg, and others
+       (magit +always-show-recent)              ; Honestly, don't even bother with git without it
 
-       :lang                                    ;; Languages, of the programming kind
-       (elisp +nameless)                        ;; This is Emacs, after all
-       python                                   ;; And the flying circus
+       :checkers                                ; Trust, but verify
+       syntax                                   ; Get squigglies when programming
+
+       :lang                                    ; Languages, of the programming kind
+       (elisp +nameless)                        ; This is Emacs, after all
+       org                                      ; The all-singing, all-dancing organiser
+       python                                   ; And the flying circus
+       yaml					; The most complicated simple language known to man
        )
+
+;; Auth info storage, used by Magit/Forge for github tokens, amongst
+;; other things
+(setq auth-sources '("secrets:Login"))
 
 (defalias 'ms 'magit-status)
 ;; Hack: monofur 10 is 98, monofur 11 is 113, but the old config used
@@ -69,3 +82,15 @@
 
 ;; Mode-specific info lookup (for ANSI CL in Info format)
 (global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
+
+;; TRAMP paths
+(use-package tramp
+  :straight nil
+  :defer t
+  :config
+  (pushnew 'tramp-own-remote-path tramp-remote-path)
+
+  (connection-local-set-profile-variables 'remote-path-cerebras-dev-vm
+					  '((tramp-remote-path . ("~/ws/bin" tramp-default-remote-path))))
+  (connection-local-set-profiles
+   '(:application tramp :machine "maciej-dev") 'remote-path-cerebras-dev-vm))
