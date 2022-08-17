@@ -41,6 +41,7 @@
 
        :lang                                    ; Languages, of the programming kind
        (elisp +nameless)                        ; This is Emacs, after all
+       cl                                       ; Elisp's bigger brother everyone admires
        org                                      ; The all-singing, all-dancing organiser
        python                                   ; And the flying circus
        yaml					; The most complicated simple language known to man
@@ -54,6 +55,9 @@
 ;; Hack: monofur 10 is 98, monofur 11 is 113, but the old config used
 ;; 105, which is better than either
 (set-face-attribute 'default nil :height 105)
+
+;; Make TAB usable for completion too
+(setf tab-always-indent 'complete)
 
 ;; Note: can't use emacs-lisp-mode-map because there are 3 different
 ;; elisp modes and they don't inherit from that
@@ -95,3 +99,57 @@
 					  '((tramp-remote-path . ("~/ws/bin" tramp-default-remote-path))))
   (connection-local-set-profiles
    '(:application tramp :machine "maciej-dev") 'remote-path-cerebras-dev-vm))
+
+;; Common Lisp + Roswell + SLY setup
+(defun roswell-impl-dir ()
+  (cl-flet ((sh (cmd)
+                (replace-regexp-in-string "_" "-" (string-trim (shell-command-to-string cmd)))))
+    (let ((dir (downcase (expand-file-name (concat "~/.roswell/impls/"
+                                                   (string-join (mapcar #'sh '("uname -m" "uname"))
+                                                                "/"))))))
+      (when (file-exists-p dir) dir))))
+
+(defun guess-roswell-implementations ()
+  "Auto-detect Roswell-installed CL implementations, returning a
+  list suitable as a value of `sly-lisp-implementations' or
+  `slime-lisp-implementations'"
+  (let ((root (roswell-impl-dir)))
+    (when root ; Skip if no Roswell impls
+      (cl-loop for file in (directory-files root)
+               if (and (file-directory-p (expand-file-name file root))
+                       (not (string-prefix-p "." file)))
+               collect `(,(intern file) ("ros" "-L" ,file "-Q" "run" "--"))))))
+
+(use-package sly
+  :config
+  (setq sly-lisp-implementations (guess-roswell-implementations))
+  ;; Set SBCL-on-Roswell as the default lisp if it's installed
+  (destructuring-bind (&optional impl args)
+      (assq 'sbcl-bin sly-lisp-implementations)
+    (when impl
+      (setf sly-default-lisp impl))))
+
+(defun qlot-sly (dir &optional impl)
+  "Start SLY through Qlot in given `dir'
+
+If `impl' (a symbol) is given, look it up in `sly-lisp-implementations'
+and use its command, otherwise use `sly-default-lisp'"
+  (interactive
+   (list (read-directory-name "Start SLY+Qlot in directory: " default-directory)
+         (if current-prefix-arg
+             (completing-read "Lisp implementation to use: " (mapcar #'car sly-lisp-implementations)
+                              nil nil nil nil sly-default-lisp)
+           sly-default-lisp)))
+  (let* ((ql-dir (or (locate-dominating-file dir "qlfile")
+                     (error "No qlfile found in `%s' or its parent directories")))
+         (impl (or impl sly-default-lisp))
+         (cmdlist (if impl
+                      (cadr (assq impl sly-lisp-implementations))
+                    (list inferior-lisp-program)))
+         ;; Ugly, but when running ros through qlot, it needs an extra "-S ." argument,
+         ;; and I can't think of a better way to do this
+         (args (destructuring-bind (head tail) (--split-with (not (string= it "ros")) cmdlist)
+                 (-concat head (when tail `("ros" "-S" ,ql-dir)) (cdr tail))
+                 cmdlist)))
+    (sly-start :name (intern (format "%s+qlot" impl))
+               :program "qlot" :program-args `("exec" ,@args) :directory ql-dir)))
