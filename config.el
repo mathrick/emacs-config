@@ -22,7 +22,8 @@
 
        :editing                                 ; It's not an emacsitor!
        defaults                                 ; Basic quality of life improvements
-       company                                  ; It's dangerous to type alone
+       ;;company                                  ; It's dangerous to type alone
+       corfu                                    ; Corfu is to company what vertico is to Ivy
        expand-region                            ; Make 'em bigger
        realgud					; The unified debugger interface, MkII
        smartparens                              ; Nobody likes counting 'em
