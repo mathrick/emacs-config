@@ -12,9 +12,9 @@
        (defaults :font "monofur for Powerline")
        auto-dim                                 ; I want to know where to look
        doom-modeline                            ; Shinier modeline
-       ;; (icomplete +vertical)                    ; The unsurprising minibuffer completion
-       ;; (selectrum -history)                     ; Flexible minibuffer completion and narrowing
-       (vertico -history +posframe)                       ; Like selectrum, but even simpler
+       ;; (icomplete +vertical)                 ; The unsurprising minibuffer completion
+       ;; (selectrum -history)                  ; Flexible minibuffer completion and narrowing
+       (vertico -history +posframe)             ; Like selectrum, but even simpler
        (scrolling +yascroll)			; Fancy scrollbars, or minimap, or whatever
        undo                                     ; Less confusing undo system
        ;;(undo +fu +session)                    ; (undo-tree by default, but you can choose undo-fu)
@@ -36,12 +36,17 @@
        :vcs                                     ; Git, Bazaar, Hg, and others
        (magit +always-show-recent)              ; Honestly, don't even bother with git without it
 
+       :tools                                   ; Various tools and utilities
+       vdiff                                    ; What do you mean you don't like ediff?
+
        :checkers                                ; Trust, but verify
        syntax                                   ; Get squigglies when programming
 
        :lang                                    ; Languages, of the programming kind
        (elisp +nameless)                        ; This is Emacs, after all
        cl                                       ; Elisp's bigger brother everyone admires
+       clojure                                  ; Elisp's cool younger sister
+       mood                                     ; Not a real laguage, just helpers for writing Mood modules
        org                                      ; The all-singing, all-dancing organiser
        python                                   ; And the flying circus
        yaml					; The most complicated simple language known to man
@@ -64,12 +69,7 @@
 (general-def lisp-mode-shared-map
   "C-c C-c"     #'eval-defun)
 
-(general-def c-mode-base-map
-  "C-<right>"   #'c-forward-into-nomenclature
-  "C-<left>"    #'c-backward-into-nomenclature)
-
-(put 'c-backward-into-nomenclature 'CUA 'move)
-(put 'c-forward-into-nomenclature 'CUA 'move)
+(global-subword-mode)
 
 ;; Remapping of standard keys
 (general-def
@@ -84,6 +84,20 @@
 
 (general-def key-translation-map
   "s-<tab>"     (kbd "M-TAB"))
+
+;; The built-in GNU style is broken, fix it
+(defconst my-c-style
+  '("gnu" (c-offsets-alist . ((arglist-close . c-lineup-arglist)
+                              (substatement-open   . 0)
+                              (case-label          . 4)
+                              (statement-case-open . 0)
+                              (block-open          . 0)
+                              (knr-argdecl-intro   . -)))))
+(c-add-style "Corrected GNU" my-c-style nil)
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (csharp-mode . "c#")
+                        (other . "Corrected gnu")))
 
 ;; Mode-specific info lookup (for ANSI CL in Info format)
 (global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
@@ -137,11 +151,11 @@ and use its command, otherwise use `sly-default-lisp'"
   (interactive
    (list (read-directory-name "Start SLY+Qlot in directory: " default-directory)
          (if current-prefix-arg
-             (completing-read "Lisp implementation to use: " (mapcar #'car sly-lisp-implementations)
-                              nil nil nil nil sly-default-lisp)
+             (intern (completing-read "Lisp implementation to use: " (mapcar #'car sly-lisp-implementations)
+                                      nil nil nil nil sly-default-lisp))
            sly-default-lisp)))
   (let* ((ql-dir (or (locate-dominating-file dir "qlfile")
-                     (error "No qlfile found in `%s' or its parent directories")))
+                     (error "No qlfile found in `%s' or its parent directories" dir)))
          (impl (or impl sly-default-lisp))
          (cmdlist (if impl
                       (cadr (assq impl sly-lisp-implementations))
