@@ -11,11 +11,11 @@
        ;;defaults                               ; Things we can all agree make sense
        (defaults :font "monofur for Powerline")
        auto-dim                                 ; I want to know where to look
-       doom-modeline                            ; Shinier modeline
+       modeline                                 ; Shinier modeline
        ;; (icomplete +vertical)                 ; The unsurprising minibuffer completion
        ;; (selectrum -history)                  ; Flexible minibuffer completion and narrowing
        (vertico -history +posframe)             ; Like selectrum, but even simpler
-       (scrolling +yascroll)			; Fancy scrollbars, or minimap, or whatever
+       (scrolling -yascroll +smooth)		; Fancy scrollbars, or minimap, or whatever
        undo                                     ; Less confusing undo system
        ;;(undo +fu +session)                    ; (undo-tree by default, but you can choose undo-fu)
        windswap                                 ; Like windmove, but also moves buffers
@@ -24,6 +24,7 @@
        defaults                                 ; Basic quality of life improvements
        ;;company                                  ; It's dangerous to type alone
        corfu                                    ; Corfu is to company what vertico is to Ivy
+       devdocs                                  ; Look up the docs while you dev
        expand-region                            ; Make 'em bigger
        realgud					; The unified debugger interface, MkII
        smartparens                              ; Nobody likes counting 'em
@@ -31,13 +32,14 @@
        visual-regexp                            ; Not for parsing HTML
        visual-fill                              ; I don't want my text as wide as my screen
 
-       copy-file-on-save
+       ;; copy-file-on-save
 
        :vcs                                     ; Git, Bazaar, Hg, and others
        (magit +always-show-recent)              ; Honestly, don't even bother with git without it
+       p4                                       ; The Enterprise™ version control, now with magit integration!
 
        :tools                                   ; Various tools and utilities
-       vdiff                                    ; What do you mean you don't like ediff?
+       ;; vdiff                                 ; What do you mean you don't like ediff?
 
        :checkers                                ; Trust, but verify
        syntax                                   ; Get squigglies when programming
@@ -46,11 +48,15 @@
        (elisp +nameless)                        ; This is Emacs, after all
        cl                                       ; Elisp's bigger brother everyone admires
        clojure                                  ; Elisp's cool younger sister
-       mood                                     ; Not a real laguage, just helpers for writing Mood modules
+       ;; mood                                     ; Not a real laguage, just helpers for writing Mood modules
        org                                      ; The all-singing, all-dancing organiser
        python                                   ; And the flying circus
        yaml					; The most complicated simple language known to man
        )
+
+
+;; Keep the warnings buffer from popping up all the time
+(setq native-comp-async-report-warnings-errors 'silent)
 
 ;; Auth info storage, used by Magit/Forge for github tokens, amongst
 ;; other things
@@ -101,6 +107,8 @@
 
 ;; Mode-specific info lookup (for ANSI CL in Info format)
 (global-set-key (kbd "C-h C-i") 'info-lookup-symbol)
+
+(setf (alist-get 'python-base-mode devdocs-major-mode-to-docs-alist) '("python~3.10" "click"))
 
 ;; TRAMP paths
 (use-package tramp
